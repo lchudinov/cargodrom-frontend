@@ -1,3 +1,4 @@
+import { UserService } from './api/services/user.service';
 import { Component } from '@angular/core';
 
 @Component({
@@ -7,4 +8,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'cargodrom-frontend';
+
+  constructor(private userService: UserService) {
+
+  }
+
+  ngOnInit(): void {
+
+  }
 }
