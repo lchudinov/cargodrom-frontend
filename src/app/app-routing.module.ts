@@ -1,3 +1,4 @@
+import { AuthGuard } from './auth/auth.guard';
 import { LogoutComponent } from './auth/components/logout/logout.component';
 import { NgModule } from '@angular/core';
 import { ExtraOptions, RouterModule, Routes } from '@angular/router';
@@ -9,7 +10,11 @@ const config: ExtraOptions = {
 };
 
 const routes: Routes = [
-  { path: 'pages', loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule) },
+  {
+    path: 'pages',
+    loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule),
+    canActivate: [AuthGuard]
+  },
   { path: 'login', component: LoginComponent, },
   { path: 'logout', component: LogoutComponent, },
   { path: 'register', component: RegisterComponent, },
