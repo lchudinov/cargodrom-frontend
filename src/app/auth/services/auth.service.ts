@@ -12,11 +12,6 @@ export class AuthService {
     token_expire: string;
     refresh_token: string;
     refresh_token_expire: string;
-  } = {
-    token: 'dummy',
-    refresh_token: 'dummy',
-    token_expire: 'today',
-    refresh_token_expire: 'today',
   };
 
   constructor(
