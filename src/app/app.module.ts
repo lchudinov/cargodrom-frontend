@@ -7,6 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ErrorInterceptor } from './error.interceptor';
 import { TokenInterceptor } from './token.interceptor';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { TokenInterceptor } from './token.interceptor';
     BrowserModule,
     AppRoutingModule,
     AuthModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule
   ],
   providers: [
     {

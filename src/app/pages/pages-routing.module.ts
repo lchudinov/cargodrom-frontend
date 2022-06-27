@@ -1,4 +1,4 @@
-import { SupplierComponent } from './components/supplier/supplier.component';
+import { ContractorComponent } from './components/contractor/contractor.component';
 import { RequestComponent } from './components/request/request.component';
 import { PagesComponent } from './pages.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
@@ -47,8 +47,8 @@ const routes: Routes = [
         pathMatch: 'full',
       },
       {
-        path: 'supplier',
-        component: SupplierComponent,
+        path: 'contractor',
+        component: ContractorComponent,
         pathMatch: 'full',
       },
       {

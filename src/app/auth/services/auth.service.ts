@@ -1,6 +1,8 @@
 import { UserService } from './../../api/services/user.service';
-import { map, mapTo, Observable, of, tap } from 'rxjs';
+import { map, Observable, of, tap } from 'rxjs';
 import { Injectable } from '@angular/core';
+
+const TOKEN_INFO_KEY = 'com.cargodrom.token-info';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +19,7 @@ export class AuthService {
   constructor(
     private userService: UserService
   ) {
+    this.loadTokenFromLocalStorage();
   }
 
 
@@ -24,6 +27,7 @@ export class AuthService {
     return this.userService.userLogin({ body: { login, password } })
       .pipe(
         tap(res => this.tokenInfo = res),
+        tap(() => this.saveTokenToLocalStorage()),
         map(() => undefined)
       );
   }
@@ -34,11 +38,35 @@ export class AuthService {
 
   logout(): Observable<void> {
     this.tokenInfo = undefined;
+    this.removeTokenFromLocalStorage();
     return of(undefined);
   }
   
   getToken(): string | undefined {
     return this.tokenInfo?.token;
+  }
+  
+  private loadTokenFromLocalStorage(): void {
+    const tokenInfoString = window.localStorage.getItem(TOKEN_INFO_KEY);
+    if (!tokenInfoString) {
+      return;
+    }
+    try {
+      const tokenInfo = JSON.parse(tokenInfoString);
+      if (tokenInfo) {
+        this.tokenInfo = tokenInfo;
+      }
+    } catch(e) {
+      console.log(`unable to load token from local storage`, e);
+    }
+  }
+  
+  private saveTokenToLocalStorage(): void {
+    window.localStorage.setItem(TOKEN_INFO_KEY, JSON.stringify(this.tokenInfo));
+  }
+  
+  private removeTokenFromLocalStorage(): void {
+    window.localStorage.removeItem(TOKEN_INFO_KEY);
   }
 
 }
