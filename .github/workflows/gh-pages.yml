@@ -18,10 +18,10 @@ jobs:
         node-version: '16'
 
     - name: Install dependencies
-      run: npm install
+      run: npm ci
 
-#    - name: Run tests
-#      run: npm run test:headless
+    - name: Run tests
+      run: npm run test:headless
 
     - name: Build
       run: npm run build:github
@@ -32,4 +32,3 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: dist/cargodrom-frontend
-        enable_jekyll: true

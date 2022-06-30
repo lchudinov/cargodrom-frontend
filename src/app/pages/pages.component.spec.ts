@@ -1,3 +1,6 @@
+import { CurrencyComponent } from './components/currency/currency.component';
+import { RouterTestingModule } from '@angular/router/testing';
+import { HeaderComponent } from './components/header/header.component';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PagesComponent } from './pages.component';
@@ -8,9 +11,10 @@ describe('PagesComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PagesComponent ]
+      imports: [RouterTestingModule],
+      declarations: [PagesComponent, HeaderComponent, CurrencyComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(PagesComponent);
     component = fixture.componentInstance;
