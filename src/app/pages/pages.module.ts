@@ -1,3 +1,4 @@
+import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
@@ -13,6 +14,7 @@ import { ClientComponent } from './components/client/client.component';
 import { GuideComponent } from './components/guide/guide.component';
 import { CurrencyComponent } from './components/currency/currency.component';
 import { ContractorComponent } from './components/contractor/contractor.component';
+import { PaginatorComponent } from './components/paginator/paginator.component';
 
 
 
@@ -29,11 +31,13 @@ import { ContractorComponent } from './components/contractor/contractor.componen
     ClientComponent,
     GuideComponent,
     CurrencyComponent,
-    ContractorComponent
+    ContractorComponent,
+    PaginatorComponent
   ],
   imports: [
     CommonModule,
     PagesRoutingModule,
+    FormsModule,
   ]
 })
 export class PagesModule { }

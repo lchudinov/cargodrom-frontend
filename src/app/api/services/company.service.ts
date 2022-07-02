@@ -4831,6 +4831,16 @@ export class CompanyService extends BaseService {
      * ID должности
      */
     position_id?: any;
+
+    /**
+     * Страница
+     */
+    page?: any;
+
+    /**
+     * Лимит позиций на страницу
+     */
+    limit?: any;
   }): Observable<StrictHttpResponse<{
 
 /**
@@ -4928,6 +4938,8 @@ export class CompanyService extends BaseService {
     if (params) {
       rb.query('department_id', params.department_id, {});
       rb.query('position_id', params.position_id, {});
+      rb.query('page', params.page, {});
+      rb.query('limit', params.limit, {});
     }
 
     return this.http.request(rb.build({
@@ -5053,6 +5065,16 @@ export class CompanyService extends BaseService {
      * ID должности
      */
     position_id?: any;
+
+    /**
+     * Страница
+     */
+    page?: any;
+
+    /**
+     * Лимит позиций на страницу
+     */
+    limit?: any;
   }): Observable<{
 
 /**

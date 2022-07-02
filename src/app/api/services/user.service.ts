@@ -26,6 +26,167 @@ export class UserService extends BaseService {
   }
 
   /**
+   * Path part for operation userCreate
+   */
+  static readonly UserCreatePath = '/user_create';
+
+  /**
+   * Регистрация пользователя.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `userCreate()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  userCreate$Response(params?: {
+    body?: {
+
+/**
+ * Название компании
+ */
+'company': string;
+
+/**
+ * Ответственное лицо
+ */
+'fio': string;
+
+/**
+ * Номер телефона:
+ */
+'phone': string;
+
+/**
+ * ИНН
+ */
+'inn': string;
+
+/**
+ * E-mail
+ */
+'email': string;
+}
+  }): Observable<StrictHttpResponse<{
+
+/**
+ * Логин
+ */
+'login': string;
+
+/**
+ * Пароль
+ */
+'password': string;
+}>> {
+
+    const rb = new RequestBuilder(this.rootUrl, UserService.UserCreatePath, 'post');
+    if (params) {
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Логин
+         */
+        'login': string;
+        
+        /**
+         * Пароль
+         */
+        'password': string;
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Регистрация пользователя.
+   *
+   *
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `userCreate$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  userCreate(params?: {
+    body?: {
+
+/**
+ * Название компании
+ */
+'company': string;
+
+/**
+ * Ответственное лицо
+ */
+'fio': string;
+
+/**
+ * Номер телефона:
+ */
+'phone': string;
+
+/**
+ * ИНН
+ */
+'inn': string;
+
+/**
+ * E-mail
+ */
+'email': string;
+}
+  }): Observable<{
+
+/**
+ * Логин
+ */
+'login': string;
+
+/**
+ * Пароль
+ */
+'password': string;
+}> {
+
+    return this.userCreate$Response(params).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Логин
+ */
+'login': string;
+
+/**
+ * Пароль
+ */
+'password': string;
+}>) => r.body as {
+
+/**
+ * Логин
+ */
+'login': string;
+
+/**
+ * Пароль
+ */
+'password': string;
+})
+    );
+  }
+
+  /**
    * Path part for operation userLogin
    */
   static readonly UserLoginPath = '/user_login';
