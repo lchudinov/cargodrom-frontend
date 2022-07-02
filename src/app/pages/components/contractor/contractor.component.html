@@ -70,4 +70,11 @@
     </tbody>
   </table>
 </div>
-<app-paginator [total]="total" [count]="count" [start]="start" (startChange)="onStartChange($event)" (countChange)="onCountChange($event)"></app-paginator>
+<app-paginator
+  [total]="total"
+  [count]="count"
+  [start]="start"
+  [limits]="limits"
+  (startChange)="onStartChange($event)"
+  (countChange)="onCountChange($event)"
+></app-paginator>
