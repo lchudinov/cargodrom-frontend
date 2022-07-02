@@ -9,7 +9,7 @@ export class PaginatorComponent implements OnInit, OnChanges {
   @Input() total = 0;
   @Input() count = 0;
   @Input() start = 0;
-  @Input() limits: number[] = [10, 15, 25, 50, 100];
+  @Input() limits: number[] = [10, 50, 100];
 
   @Output() startChange = new EventEmitter<number>();
   @Output() countChange = new EventEmitter<number>();
@@ -20,11 +20,7 @@ export class PaginatorComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['count']) {
-      if (!this.limits.includes(this.count)) {
-        this.limits = [...this.limits, this.count].sort((a, b) => a - b);
-      }
-    }
+
   }
 
   get first(): number {
@@ -63,8 +59,8 @@ export class PaginatorComponent implements OnInit, OnChanges {
     this.startChange.emit(page * this.count);
   }
 
-  newCountSelected(count: number): void {
-    this.countChange.emit(count);
+  newCountSelected(count: number | string): void {
+    this.countChange.emit(+count);
   }
   
   userPage(page: number ): number {

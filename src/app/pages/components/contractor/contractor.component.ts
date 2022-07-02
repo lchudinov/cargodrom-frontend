@@ -14,7 +14,8 @@ export class ContractorComponent implements OnInit {
   contractors: Contractor[] = [];
   total: number = 0;
   start = 0;
-  count = 10;
+  limits = [10, 15, 25, 50, 100];
+  count = this.limits[0];
 
   @Input() generateContractors = true;
 
