@@ -41,6 +41,16 @@ export class CustomerService extends BaseService {
    * This method doesn't expect any request body.
    */
   customerList$Response(params?: {
+
+    /**
+     * Страница
+     */
+    page?: any;
+
+    /**
+     * Лимит позиций на страницу
+     */
+    limit?: any;
   }): Observable<StrictHttpResponse<Array<{
 
 /**
@@ -86,6 +96,8 @@ export class CustomerService extends BaseService {
 
     const rb = new RequestBuilder(this.rootUrl, CustomerService.CustomerListPath, 'get');
     if (params) {
+      rb.query('page', params.page, {});
+      rb.query('limit', params.limit, {});
     }
 
     return this.http.request(rb.build({
@@ -151,6 +163,16 @@ export class CustomerService extends BaseService {
    * This method doesn't expect any request body.
    */
   customerList(params?: {
+
+    /**
+     * Страница
+     */
+    page?: any;
+
+    /**
+     * Лимит позиций на страницу
+     */
+    limit?: any;
   }): Observable<Array<{
 
 /**

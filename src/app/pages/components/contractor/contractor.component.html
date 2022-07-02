@@ -1,1 +1,73 @@
-<p>contractor works!</p>
+<div class="table">
+  <table>
+    <tbody>
+      <tr>
+        <th>№</th>
+        <th>Подрядчик</th>
+        <th>Страна</th>
+        <th class="l">Специализация</th>
+        <th>Грузы</th>
+        <th class="l">Рейтинг</th>
+        <th>Результаты торгов</th>
+        <th>Допуск</th>
+        <th>Средняя скорость ответа</th>
+        <th>ФОЗ</th>
+        <th class="l">Контактные лица</th>
+        <th>Связь</th>
+      </tr>
+      <tr *ngFor="let contractor of contractors; index as i" [ngClass]="{'odd': i % 2 == 1}">
+        <td>{{ start + i + 1 }}</td>
+        <td>{{ contractor.name }}</td>
+        <td>{{ contractor.country_name }} </td>
+        <td class="l">
+          <span class="type air"></span>
+          <span class="type road"></span>
+        </td>
+        <td>FLC, LCL, REF</td>
+        <td class="l">{{ contractor.rating_nps_text }}/td>
+        <td>{{contractor.trade_count }}
+          <span class="gray">
+            (
+            <span class="success">{{contractor.trade_success_count}}</span>
+            /
+            <span class="fail">{{contractor.trade_fail_count}}</span>
+            )
+          </span>
+        </td>
+        <td>
+          <span *ngIf="contractor.access" class="success b">Есть</span>
+          <span *ngIf="!contractor.access" class="fail b">Нет</span>
+        </td>
+        <td>{{ contractor.avg_answer_time | number}} мин.</td>
+        <td></td>
+        <td class="l">
+          <ng-container *ngFor="let contact of contractor.contacts">
+            {{ contact.name_f }} <span class="gray">({{contact.city_name}})</span>
+          </ng-container>
+        </td>
+        <td class="gray">
+          <ng-container *ngFor="let contact of contractor.contacts">
+            Тел.: <span class="bk">{{contact.phone}}</span>, E-mail.: <span class="bk">{{contact.email}}</span>
+          </ng-container>
+          </td>
+      </tr>
+      <!--
+      <tr class="odd">
+        <td>2</td>
+        <td>ООО Фирма 2</td>
+        <td>Россия</td>
+        <td class="l"><span class="type sea"></span></td>
+        <td>LCL, REF</td>
+        <td class="l">9/10 NPC</td>
+        <td>56 <span class="gray">(<span class="success">5</span>/<span class="fail">4</span>)</span></td>
+        <td><span class="fail b">Нет</span></td>
+        <td>39 мин</td>
+        <td></td>
+        <td class="l">Егор <span class="gray">(Москва)</span></td>
+        <td class="gray">E-mail.: <span class="bk">bbb@mail.ru</span></td>
+      </tr>
+    -->
+    </tbody>
+  </table>
+</div>
+<app-paginator [total]="total" [count]="count" [start]="start" (startChange)="onStartChange($event)" (countChange)="onCountChange($event)"></app-paginator>

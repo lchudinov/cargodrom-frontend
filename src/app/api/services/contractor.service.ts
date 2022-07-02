@@ -359,12 +359,27 @@ export class ContractorService extends BaseService {
    * This method doesn't expect any request body.
    */
   contractorList$Response(params?: {
-  }): Observable<StrictHttpResponse<Array<{
+
+    /**
+     * Начальная позиция
+     */
+    start?: number;
+
+    /**
+     * Лимит позиций на страницу
+     */
+    count?: number;
+  }): Observable<StrictHttpResponse<{
+
+/**
+ * Позиции
+ */
+'items'?: Array<{
 
 /**
  * ID
  */
-'id': number;
+'id'?: number;
 
 /**
  * Наименование подрядчика
@@ -524,104 +539,7 @@ export class ContractorService extends BaseService {
 /**
  * Контактные лица (Формат как в запросе - contractor_contact_list)
  */
-'contacts'?: Array<{
-
-/**
- * ID
- */
-'id'?: number;
-
-/**
- * Фамилия
- */
-'name_f'?: string;
-
-/**
- * Имя
- */
-'name_i'?: string;
-
-/**
- * Отчество
- */
-'name_o'?: string;
-
-/**
- * ФИО
- */
-'name'?: string;
-
-/**
- * Должность
- */
-'position'?: string;
-
-/**
- * Местонахождение офиса
- */
-'city_name'?: string;
-
-/**
- * Местонахождение офиса (ID берем из запроса - direction_city)
- */
-'city_id'?: number;
-
-/**
- * Офисный телефон
- */
-'phone'?: string;
-
-/**
- * Мобильный телефон
- */
-'mobile_phone'?: string;
-
-/**
- * E-mail
- */
-'email'?: string;
-
-/**
- * Skype
- */
-'skype'?: string;
-
-/**
- * Telegram
- */
-'telegram'?: string;
-
-/**
- * Whatsapp
- */
-'whatsapp'?: string;
-
-/**
- * WeChat
- */
-'wechat'?: string;
-
-/**
- * Ответственный за направления (ID берем из запроса - direction_type)
- */
-'responsible_direction'?: Array<any>;
-
-/**
- * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
- */
-'responsible_param'?: {
-};
-
-/**
- * Время создания
- */
-'time_add'?: string;
-
-/**
- * Время изменения
- */
-'time_edit'?: string;
-}>;
+'contacts'?: Array<any>;
 
 /**
  * Контактные лица
@@ -636,16 +554,24 @@ export class ContractorService extends BaseService {
 /**
  * Время создания
  */
-'time'?: string;
+'time_add'?: string;
 
 /**
  * Время изменения
  */
 'time_edit'?: string;
-}>>> {
+}>;
+
+/**
+ * Всего позиций
+ */
+'total'?: number;
+}>> {
 
     const rb = new RequestBuilder(this.rootUrl, ContractorService.ContractorListPath, 'get');
     if (params) {
+      rb.query('start', params.start, {});
+      rb.query('count', params.count, {});
     }
 
     return this.http.request(rb.build({
@@ -654,12 +580,17 @@ export class ContractorService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Array<{
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Позиции
+         */
+        'items'?: Array<{
         
         /**
          * ID
          */
-        'id': number;
+        'id'?: number;
         
         /**
          * Наименование подрядчика
@@ -819,104 +750,7 @@ export class ContractorService extends BaseService {
         /**
          * Контактные лица (Формат как в запросе - contractor_contact_list)
          */
-        'contacts'?: Array<{
-        
-        /**
-         * ID
-         */
-        'id'?: number;
-        
-        /**
-         * Фамилия
-         */
-        'name_f'?: string;
-        
-        /**
-         * Имя
-         */
-        'name_i'?: string;
-        
-        /**
-         * Отчество
-         */
-        'name_o'?: string;
-        
-        /**
-         * ФИО
-         */
-        'name'?: string;
-        
-        /**
-         * Должность
-         */
-        'position'?: string;
-        
-        /**
-         * Местонахождение офиса
-         */
-        'city_name'?: string;
-        
-        /**
-         * Местонахождение офиса (ID берем из запроса - direction_city)
-         */
-        'city_id'?: number;
-        
-        /**
-         * Офисный телефон
-         */
-        'phone'?: string;
-        
-        /**
-         * Мобильный телефон
-         */
-        'mobile_phone'?: string;
-        
-        /**
-         * E-mail
-         */
-        'email'?: string;
-        
-        /**
-         * Skype
-         */
-        'skype'?: string;
-        
-        /**
-         * Telegram
-         */
-        'telegram'?: string;
-        
-        /**
-         * Whatsapp
-         */
-        'whatsapp'?: string;
-        
-        /**
-         * WeChat
-         */
-        'wechat'?: string;
-        
-        /**
-         * Ответственный за направления (ID берем из запроса - direction_type)
-         */
-        'responsible_direction'?: Array<any>;
-        
-        /**
-         * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
-         */
-        'responsible_param'?: {
-        };
-        
-        /**
-         * Время создания
-         */
-        'time_add'?: string;
-        
-        /**
-         * Время изменения
-         */
-        'time_edit'?: string;
-        }>;
+        'contacts'?: Array<any>;
         
         /**
          * Контактные лица
@@ -931,13 +765,19 @@ export class ContractorService extends BaseService {
         /**
          * Время создания
          */
-        'time'?: string;
+        'time_add'?: string;
         
         /**
          * Время изменения
          */
         'time_edit'?: string;
-        }>>;
+        }>;
+        
+        /**
+         * Всего позиций
+         */
+        'total'?: number;
+        }>;
       })
     );
   }
@@ -953,12 +793,27 @@ export class ContractorService extends BaseService {
    * This method doesn't expect any request body.
    */
   contractorList(params?: {
-  }): Observable<Array<{
+
+    /**
+     * Начальная позиция
+     */
+    start?: any;
+
+    /**
+     * Лимит позиций на страницу
+     */
+    count?: any;
+  }): Observable<{
+
+/**
+ * Позиции
+ */
+'items'?: Array<{
 
 /**
  * ID
  */
-'id': number;
+'id'?: number;
 
 /**
  * Наименование подрядчика
@@ -1118,104 +973,7 @@ export class ContractorService extends BaseService {
 /**
  * Контактные лица (Формат как в запросе - contractor_contact_list)
  */
-'contacts'?: Array<{
-
-/**
- * ID
- */
-'id'?: number;
-
-/**
- * Фамилия
- */
-'name_f'?: string;
-
-/**
- * Имя
- */
-'name_i'?: string;
-
-/**
- * Отчество
- */
-'name_o'?: string;
-
-/**
- * ФИО
- */
-'name'?: string;
-
-/**
- * Должность
- */
-'position'?: string;
-
-/**
- * Местонахождение офиса
- */
-'city_name'?: string;
-
-/**
- * Местонахождение офиса (ID берем из запроса - direction_city)
- */
-'city_id'?: number;
-
-/**
- * Офисный телефон
- */
-'phone'?: string;
-
-/**
- * Мобильный телефон
- */
-'mobile_phone'?: string;
-
-/**
- * E-mail
- */
-'email'?: string;
-
-/**
- * Skype
- */
-'skype'?: string;
-
-/**
- * Telegram
- */
-'telegram'?: string;
-
-/**
- * Whatsapp
- */
-'whatsapp'?: string;
-
-/**
- * WeChat
- */
-'wechat'?: string;
-
-/**
- * Ответственный за направления (ID берем из запроса - direction_type)
- */
-'responsible_direction'?: Array<any>;
-
-/**
- * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
- */
-'responsible_param'?: {
-};
-
-/**
- * Время создания
- */
-'time_add'?: string;
-
-/**
- * Время изменения
- */
-'time_edit'?: string;
-}>;
+'contacts'?: Array<any>;
 
 /**
  * Контактные лица
@@ -1230,21 +988,32 @@ export class ContractorService extends BaseService {
 /**
  * Время создания
  */
-'time'?: string;
+'time_add'?: string;
 
 /**
  * Время изменения
  */
 'time_edit'?: string;
-}>> {
+}>;
+
+/**
+ * Всего позиций
+ */
+'total'?: number;
+}> {
 
     return this.contractorList$Response(params).pipe(
-      map((r: StrictHttpResponse<Array<{
+      map((r: StrictHttpResponse<{
+
+/**
+ * Позиции
+ */
+'items'?: Array<{
 
 /**
  * ID
  */
-'id': number;
+'id'?: number;
 
 /**
  * Наименование подрядчика
@@ -1404,104 +1173,7 @@ export class ContractorService extends BaseService {
 /**
  * Контактные лица (Формат как в запросе - contractor_contact_list)
  */
-'contacts'?: Array<{
-
-/**
- * ID
- */
-'id'?: number;
-
-/**
- * Фамилия
- */
-'name_f'?: string;
-
-/**
- * Имя
- */
-'name_i'?: string;
-
-/**
- * Отчество
- */
-'name_o'?: string;
-
-/**
- * ФИО
- */
-'name'?: string;
-
-/**
- * Должность
- */
-'position'?: string;
-
-/**
- * Местонахождение офиса
- */
-'city_name'?: string;
-
-/**
- * Местонахождение офиса (ID берем из запроса - direction_city)
- */
-'city_id'?: number;
-
-/**
- * Офисный телефон
- */
-'phone'?: string;
-
-/**
- * Мобильный телефон
- */
-'mobile_phone'?: string;
-
-/**
- * E-mail
- */
-'email'?: string;
-
-/**
- * Skype
- */
-'skype'?: string;
-
-/**
- * Telegram
- */
-'telegram'?: string;
-
-/**
- * Whatsapp
- */
-'whatsapp'?: string;
-
-/**
- * WeChat
- */
-'wechat'?: string;
-
-/**
- * Ответственный за направления (ID берем из запроса - direction_type)
- */
-'responsible_direction'?: Array<any>;
-
-/**
- * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
- */
-'responsible_param'?: {
-};
-
-/**
- * Время создания
- */
-'time_add'?: string;
-
-/**
- * Время изменения
- */
-'time_edit'?: string;
-}>;
+'contacts'?: Array<any>;
 
 /**
  * Контактные лица
@@ -1516,18 +1188,29 @@ export class ContractorService extends BaseService {
 /**
  * Время создания
  */
-'time'?: string;
+'time_add'?: string;
 
 /**
  * Время изменения
  */
 'time_edit'?: string;
-}>>) => r.body as Array<{
+}>;
+
+/**
+ * Всего позиций
+ */
+'total'?: number;
+}>) => r.body as {
+
+/**
+ * Позиции
+ */
+'items'?: Array<{
 
 /**
  * ID
  */
-'id': number;
+'id'?: number;
 
 /**
  * Наименование подрядчика
@@ -1687,104 +1370,7 @@ export class ContractorService extends BaseService {
 /**
  * Контактные лица (Формат как в запросе - contractor_contact_list)
  */
-'contacts'?: Array<{
-
-/**
- * ID
- */
-'id'?: number;
-
-/**
- * Фамилия
- */
-'name_f'?: string;
-
-/**
- * Имя
- */
-'name_i'?: string;
-
-/**
- * Отчество
- */
-'name_o'?: string;
-
-/**
- * ФИО
- */
-'name'?: string;
-
-/**
- * Должность
- */
-'position'?: string;
-
-/**
- * Местонахождение офиса
- */
-'city_name'?: string;
-
-/**
- * Местонахождение офиса (ID берем из запроса - direction_city)
- */
-'city_id'?: number;
-
-/**
- * Офисный телефон
- */
-'phone'?: string;
-
-/**
- * Мобильный телефон
- */
-'mobile_phone'?: string;
-
-/**
- * E-mail
- */
-'email'?: string;
-
-/**
- * Skype
- */
-'skype'?: string;
-
-/**
- * Telegram
- */
-'telegram'?: string;
-
-/**
- * Whatsapp
- */
-'whatsapp'?: string;
-
-/**
- * WeChat
- */
-'wechat'?: string;
-
-/**
- * Ответственный за направления (ID берем из запроса - direction_type)
- */
-'responsible_direction'?: Array<any>;
-
-/**
- * Ответственный за направления (distination_country_id: {departure_country_id: [array of transport_sub_kind]}, ...)
- */
-'responsible_param'?: {
-};
-
-/**
- * Время создания
- */
-'time_add'?: string;
-
-/**
- * Время изменения
- */
-'time_edit'?: string;
-}>;
+'contacts'?: Array<any>;
 
 /**
  * Контактные лица
@@ -1799,13 +1385,19 @@ export class ContractorService extends BaseService {
 /**
  * Время создания
  */
-'time'?: string;
+'time_add'?: string;
 
 /**
  * Время изменения
  */
 'time_edit'?: string;
-}>)
+}>;
+
+/**
+ * Всего позиций
+ */
+'total'?: number;
+})
     );
   }
 

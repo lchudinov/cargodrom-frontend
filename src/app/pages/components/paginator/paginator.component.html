@@ -1,0 +1,50 @@
+<div class="table-footer">
+  <div class="limit">
+    <!-- <span class="ui-select" contenteditable="false"
+      style="margin-bottom: 0px; margin-top: 0px; margin-right: 0px; width: 170px;">
+      <span class="ui-select-width"
+        style="padding-left: 65px; font-size: 13px; font-family: regular, arial, &quot;sans-serif&quot;; display: block; overflow: hidden; height: 0px; line-height: 0; visibility: hidden; position: relative;">Показывать
+        по 100</span>
+     -->
+    <select name="limit" class="init" [ngModel]="count" (ngModelChange)="newCountSelected($event)">
+      <option *ngFor="let limit of limits" [value]="limit">Показывать по {{ limit }}</option>
+    </select>
+    <!--
+    <span class="ui-select-input">Показывать по 25</span>
+    <span class="ui-select-button">&nbsp;</span>
+    <span class="ui-select-fader">&nbsp;</span>
+    <span class="ui-select-layer" style="display: none; height: auto; visibility: visible;">
+      <span class="ui-select-list-scroller">
+        <span class="ui-select-list">
+          <span class="ui-select-item selected">Показывать по 25</span>
+          <span class="ui-select-item odd">Показывать по 50</span>
+          <span class="ui-select-item">Показывать по 100</span></span>
+      </span>
+      <div class="scrollbar-track">
+        <div class="scrollbar-track-btn scrollbar-up"></div>
+        <div class="scrollbar-track-free">
+          <div class="scrollbar-bar"></div>
+        </div>
+        <div class="scrollbar-track-btn scrollbar-down"></div>
+      </div>
+    </span>
+  </span>
+  -->
+    <span class="note">Показаны: {{first}} - {{last}} из {{total}}</span>
+  </div>
+  <div class="pages">
+    <div class="navigator">
+      <a class="item arrow left icon icon-control-rewind" (click)="goToPage(prevPage)" *ngIf="currentPage > 0"></a>
+      <a class="item first icon icon-control-start" (click)="goToPage(0)" *ngIf="currentPage > 2">1</a>
+      <span class="dot" *ngIf="currentPage > 0">. . .</span>
+      <a class="item" (click)="goToPage(prevPrevPage)" *ngIf="currentPage > 1">{{ userPage(prevPrevPage) }}</a>
+      <a class="item" (click)="goToPage(prevPage)" *ngIf="currentPage > 0">{{ userPage(prevPage) }}</a>
+      <span class="item sel">{{ userPage(currentPage) }}</span>
+      <a class="item" (click)="goToPage(nextPage)" *ngIf="currentPage < lastPage">{{ userPage(nextPage) }}</a>
+      <a class="item" (click)="goToPage(nextNextPage)" *ngIf="currentPage < lastPage - 1">{{ userPage(nextNextPage) }}</a>
+      <span class="dot" *ngIf="currentPage < lastPage">. . .</span>
+      <a class="item last icon icon-control-end" (click)="goToPage(lastPage)" *ngIf="currentPage < lastPage - 1">{{userPage(lastPage)}}</a>
+      <a class="item arrow right icon icon-control-forward" (click)="goToPage(nextPage)" *ngIf="currentPage < lastPage"></a>
+    </div>
+  </div>
+</div>

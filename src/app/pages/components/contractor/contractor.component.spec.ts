@@ -1,5 +1,8 @@
+import { CommonModule } from '@angular/common';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
+import { PaginatorComponent } from '../paginator/paginator.component';
 
 import { ContractorComponent } from './contractor.component';
 
@@ -9,10 +12,17 @@ describe('ContractorComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      declarations: [ ContractorComponent ]
+      imports: [
+        HttpClientTestingModule,
+        CommonModule,
+        FormsModule,
+      ],
+      declarations: [
+        ContractorComponent,
+        PaginatorComponent
+      ]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(ContractorComponent);
     component = fixture.componentInstance;
