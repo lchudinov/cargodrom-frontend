@@ -6,12 +6,13 @@ import {
   HttpEvent,
   HttpInterceptor
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, switchMap, tap, finalize, map, BehaviorSubject, Subject } from 'rxjs';
 import { ApiConfiguration } from './api/api-configuration';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
   apiUrl: string;
+  private refreshTokenSubject?: Subject<void>;
 
   constructor(
     private auth: AuthService,
@@ -21,7 +22,25 @@ export class TokenInterceptor implements HttpInterceptor {
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    return next.handle(this.injectToken(request));
+    if (this.requestNotNeedToken(request)) {
+      return next.handle(request);
+    }
+    if (!this.auth.isTokenExpired()) {
+      return next.handle(this.injectToken(request))
+    }
+    if (!this.refreshTokenSubject) {
+      this.refreshTokenSubject = new Subject();
+      this.auth.refreshToken().subscribe(
+        () => {
+          this.refreshTokenSubject!.next();
+          this.refreshTokenSubject!.complete();
+          this.refreshTokenSubject = undefined;
+        }
+      )
+    }
+    return this.refreshTokenSubject.pipe(
+      switchMap(() => next.handle(this.injectToken(request))),
+    );
   }
 
   private injectToken(request: HttpRequest<any>) {
@@ -33,4 +52,10 @@ export class TokenInterceptor implements HttpInterceptor {
     }
     return request;
   }
+
+  requestNotNeedToken(request: HttpRequest<any>): boolean {
+    const whiteList = ['/user_update_token', '/user_logout'];
+    return whiteList.some(path => request.url.endsWith(path))
+  }
+
 }
