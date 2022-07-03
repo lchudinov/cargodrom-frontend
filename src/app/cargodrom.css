@@ -1,17 +1,17 @@
 @font-face {
   font-family: 'regular';
-  src: url('/templates/common/font/lato-regular.eot');
-  src: url('/templates/common/font/lato-regular.eot?#iefix') format('embedded-opentype'),
-  url('/templates/common/font/lato-regular.ttf') format('truetype');
+  src: url('../assets/lato-regular.eot');
+  src: url('../assets/lato-regular.eot?#iefix') format('embedded-opentype'),
+  url('../assets/lato-regular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'regular';
-  src: url('/templates/common/font/lato-bold.eot');
-  src: url('/templates/common/font/lato-bold.eot?#iefix') format('embedded-opentype'),
-  url('/templates/common/font/lato-bold.ttf') format('truetype');
+  src: url('../assets/lato-bold.eot');
+  src: url('../assets/lato-bold.eot?#iefix') format('embedded-opentype'),
+  url('../assets/lato-bold.ttf') format('truetype');
   font-weight: bold;
   font-style: normal;
 }
