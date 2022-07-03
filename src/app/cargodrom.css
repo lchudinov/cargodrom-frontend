@@ -179,10 +179,10 @@ body { height: 100%; padding: 0; margin: 0; background: #f7f9fc; color: #2C3640;
 .table .b { font-weight: bold; }
 .table .type { display: inline-block; width: 26px; height: 26px; }
 .table .type + .type { margin-left: 7px; }
-.table .type.air { background: url('/templates/default/pic/pic-service-air.svg') no-repeat 50% 50%; }
-.table .type.road { background: url('/templates/default/pic/pic-service-road.svg') no-repeat 50% 50%; }
-.table .type.rail { background: url('/templates/default/pic/pic-service-rail.svg') no-repeat 50% 50%; }
-.table .type.sea { background: url('/templates/default/pic/pic-service-sea.svg') no-repeat 50% 50%; }
+.table .type.air { background: url('../assets/pic-service-air.svg') no-repeat 50% 50%; }
+.table .type.road { background: url('../assets/pic-service-road.svg') no-repeat 50% 50%; }
+.table .type.rail { background: url('../assets/pic-service-rail.svg') no-repeat 50% 50%; }
+.table .type.sea { background: url('../assets/pic-service-sea.svg') no-repeat 50% 50%; }
 
 .table .kso { white-space: nowrap; }
 .table .kso span { display: inline-block; background: #FD7171; width: 8px; height: 28px; margin: 0 1px 0 1px; }
