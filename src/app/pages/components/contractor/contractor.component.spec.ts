@@ -1,3 +1,4 @@
+import { ContractorFilterComponent } from '../contractor-filter/contractor-filter.component';
 import { CommonModule } from '@angular/common';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
@@ -19,7 +20,8 @@ describe('ContractorComponent', () => {
       ],
       declarations: [
         ContractorComponent,
-        PaginatorComponent
+        PaginatorComponent,
+        ContractorFilterComponent
       ]
     })
       .compileComponents();
