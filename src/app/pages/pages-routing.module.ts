@@ -10,6 +10,7 @@ import { TariffComponent } from './components/tariff/tariff.component';
 import { ReportComponent } from './components/report/report.component';
 import { ClientComponent } from './components/client/client.component';
 import { GuideComponent } from './components/guide/guide.component';
+import { ContractorEditorComponent } from './components/contractor-editor/contractor-editor.component';
 
 
 const routes: Routes = [
@@ -49,6 +50,16 @@ const routes: Routes = [
       {
         path: 'contractor',
         component: ContractorComponent,
+        pathMatch: 'full',
+      },
+      {
+        path: 'contractor/edit/:id',
+        component: ContractorEditorComponent,
+        pathMatch: 'full',
+      },
+      {
+        path: 'contractor/add',
+        component: ContractorEditorComponent,
         pathMatch: 'full',
       },
       {
