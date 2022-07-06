@@ -1,0 +1,639 @@
+<form class="edit-form" [formGroup]="contractorForm">
+  <div class="hdr">
+    <div class="title">
+      <div *ngIf="isEditMode">Редактирование подрядчика</div>
+      <div *ngIf="!isEditMode">Новый подрядчик</div>
+      <div class="req-fields">Обязательные поля: <span class="req">•</span></div>
+    </div>
+    <div class="fn">
+      <span class="btn v save"><span>Сохранить</span></span>
+      <span class="btn v del"><span>Удалить</span></span>
+      <span class="btn v cancel" (click)="goBack()"><span>Отмена</span></span>
+    </div>
+  </div>
+
+  <div class="form-block">
+    <div class="form-row">
+      <div class="form-data">
+        <label>
+          <input type="checkbox" name="var[ex]" value="1">
+          <i> </i>
+          <span>Исключить Подрядчика из торгов</span></label>
+      </div>
+    </div>
+    <div class="form-row">
+
+      <div class="form-item-layout">
+        <div class="form-item">
+          <div class="form-label">Наименование подрядчика: <span class="req">•</span></div>
+          <div class="form-data"><input type="text" name="name" formControlName="name" placeholder="—"></div>
+        </div>
+        <div class="form-item">
+          <div class="form-label">Идентификатор (ИНН, Rec № и пр.):</div>
+          <div class="form-data"><input type="text" name="ind" formControlName="ind" placeholder="—"></div>
+        </div>
+        <div class="form-item">
+          <div class="form-label">Страна нахождения: <span class="req">•</span></div>
+          <div class="form-data">
+            <span class="ui-select" contenteditable="false"
+              style="margin-bottom: 0px; margin-top: 0px; margin-right: 0px; width: 247.5px;"><span
+                class="ui-select-width"
+                style="padding-left: 66px; font-size: 15px; font-family: regular, arial, &quot;sans-serif&quot;; display: block; overflow: hidden; height: 0px; line-height: 0; visibility: hidden; position: relative;">Тайвань</span><select
+                name="var[country_id]" class="init" style="display: none;">
+                <option value="1">Россия</option>
+                <option value="2">Китай</option>
+                <option value="3">Тайвань</option>
+              </select><span class="ui-select-input">Россия</span><span class="ui-select-button">&nbsp;</span><span
+                class="ui-select-fader">&nbsp;</span><span class="ui-select-layer"
+                style="display: none; height: auto; visibility: visible;"><span class="ui-select-list-scroller"><span
+                    class="ui-select-list"><span class="ui-select-item selected">Россия</span><span
+                      class="ui-select-item odd">Китай</span><span class="ui-select-item">Тайвань</span></span></span>
+                <div class="scrollbar-track">
+                  <div class="scrollbar-track-btn scrollbar-up"></div>
+                  <div class="scrollbar-track-free">
+                    <div class="scrollbar-bar"></div>
+                  </div>
+                  <div class="scrollbar-track-btn scrollbar-down"></div>
+                </div>
+              </span></span>
+          </div>
+        </div>
+        <div class="form-item">
+          <div class="form-label">город: <span class="req">•</span></div>
+          <div class="form-data"><input type="text" name="city_name" formControlName="city_name" placeholder="—"></div>
+        </div>
+      </div>
+
+      <div class="form-item-layout">
+        <div class="form-item w50">
+          <div class="form-label">адрес:</div>
+          <div class="form-data"><input type="text" name="address" formControlName="address" placeholder="—"></div>
+        </div>
+        <div class="form-item">
+          <div class="form-label">общий телефон:</div>
+          <div class="form-data"><input type="text" name="phone" formControlName="phone" placeholder="—"></div>
+        </div>
+        <div class="form-item">
+          <div class="form-label">сайт компании:</div>
+          <div class="form-data"><input type="text" name="web" formControlName="web" placeholder="—"></div>
+
+        </div>
+      </div>
+
+      <div class="form-item-layout">
+        <div class="form-item">
+          <div class="form-label">язык общения: <span class="req">•</span></div>
+          <div class="form-data">
+            <span class="ui-select" contenteditable="false"
+              style="margin-bottom: 0px; margin-top: 0px; margin-right: 0px; width: 247.5px;"><span
+                class="ui-select-width"
+                style="padding-left: 66px; font-size: 15px; font-family: regular, arial, &quot;sans-serif&quot;; display: block; overflow: hidden; height: 0px; line-height: 0; visibility: hidden; position: relative;">Английский</span><select
+                name="var[country_id]" class="init" style="display: none;">
+                <option value="1">Русский</option>
+                <option value="2">Английский</option>
+              </select><span class="ui-select-input">Русский</span><span class="ui-select-button">&nbsp;</span><span
+                class="ui-select-fader">&nbsp;</span><span class="ui-select-layer"
+                style="display: none; height: auto; visibility: visible;"><span class="ui-select-list-scroller"><span
+                    class="ui-select-list"><span class="ui-select-item selected">Русский</span><span
+                      class="ui-select-item odd">Английский</span></span></span>
+                <div class="scrollbar-track">
+                  <div class="scrollbar-track-btn scrollbar-up"></div>
+                  <div class="scrollbar-track-free">
+                    <div class="scrollbar-bar"></div>
+                  </div>
+                  <div class="scrollbar-track-btn scrollbar-down"></div>
+                </div>
+              </span></span>
+          </div>
+        </div>
+        <div class="form-item">
+          <div class="form-label">вид подрядчика: <span class="req">•</span></div>
+          <div class="form-data">
+            <span class="ui-select" contenteditable="false"
+              style="margin-bottom: 0px; margin-top: 0px; margin-right: 0px; width: 247.5px;"><span
+                class="ui-select-width"
+                style="padding-left: 66px; font-size: 15px; font-family: regular, arial, &quot;sans-serif&quot;; display: block; overflow: hidden; height: 0px; line-height: 0; visibility: hidden; position: relative;">Агент</span><select
+                name="var[country_id]" class="init" style="display: none;">
+                <option value="1">Агент</option>
+                <option value="2">Агент</option>
+                <option value="3">Агент</option>
+              </select><span class="ui-select-input">Агент</span><span class="ui-select-button">&nbsp;</span><span
+                class="ui-select-fader">&nbsp;</span><span class="ui-select-layer"
+                style="display: none; height: auto; visibility: visible;"><span class="ui-select-list-scroller"><span
+                    class="ui-select-list"><span class="ui-select-item selected">Агент</span><span
+                      class="ui-select-item odd">Агент</span><span class="ui-select-item">Агент</span></span></span>
+                <div class="scrollbar-track">
+                  <div class="scrollbar-track-btn scrollbar-up"></div>
+                  <div class="scrollbar-track-free">
+                    <div class="scrollbar-bar"></div>
+                  </div>
+                  <div class="scrollbar-track-btn scrollbar-down"></div>
+                </div>
+              </span></span>
+          </div>
+        </div>
+        <div class="form-item">
+          <div class="form-label">членство в ассоциациях:</div>
+          <div class="form-data">
+            <span class="ui-select" contenteditable="false"
+              style="margin-bottom: 0px; margin-top: 0px; margin-right: 0px; width: 247.5px;"><span
+                class="ui-select-width"
+                style="padding-left: 66px; font-size: 15px; font-family: regular, arial, &quot;sans-serif&quot;; display: block; overflow: hidden; height: 0px; line-height: 0; visibility: hidden; position: relative;">WCA,
+                GLA</span><select name="var[country_id]" class="init" style="display: none;">
+                <option value="1">WCA, GLA</option>
+                <option value="2">WCA, GLA</option>
+                <option value="3">WCA, GLA</option>
+              </select><span class="ui-select-input">WCA, GLA</span><span class="ui-select-button">&nbsp;</span><span
+                class="ui-select-fader">&nbsp;</span><span class="ui-select-layer"
+                style="display: none; height: auto; visibility: visible;"><span class="ui-select-list-scroller"><span
+                    class="ui-select-list"><span class="ui-select-item selected">WCA, GLA</span><span
+                      class="ui-select-item odd">WCA, GLA</span><span class="ui-select-item">WCA,
+                      GLA</span></span></span>
+                <div class="scrollbar-track">
+                  <div class="scrollbar-track-btn scrollbar-up"></div>
+                  <div class="scrollbar-track-free">
+                    <div class="scrollbar-bar"></div>
+                  </div>
+                  <div class="scrollbar-track-btn scrollbar-down"></div>
+                </div>
+              </span></span>
+          </div>
+        </div>
+        <div class="form-item">
+          <div class="form-label">система налогообложения: <span class="req">•</span></div>
+          <div class="form-data">
+            <span class="ui-select" contenteditable="false"
+              style="margin-bottom: 0px; margin-top: 0px; margin-right: 0px; width: 247.5px;"><span
+                class="ui-select-width"
+                style="padding-left: 66px; font-size: 15px; font-family: regular, arial, &quot;sans-serif&quot;; display: block; overflow: hidden; height: 0px; line-height: 0; visibility: hidden; position: relative;">НДС
+                18%</span><select name="var[country_id]" class="init" style="display: none;">
+                <option value="1">НДС 0%</option>
+                <option value="2">НДС 18%</option>
+                <option value="3">НДС 20%</option>
+              </select><span class="ui-select-input">НДС 0%</span><span class="ui-select-button">&nbsp;</span><span
+                class="ui-select-fader">&nbsp;</span><span class="ui-select-layer"
+                style="display: none; height: auto; visibility: visible;"><span class="ui-select-list-scroller"><span
+                    class="ui-select-list"><span class="ui-select-item selected">НДС 0%</span><span
+                      class="ui-select-item odd">НДС 18%</span><span class="ui-select-item">НДС 20%</span></span></span>
+                <div class="scrollbar-track">
+                  <div class="scrollbar-track-btn scrollbar-up"></div>
+                  <div class="scrollbar-track-free">
+                    <div class="scrollbar-bar"></div>
+                  </div>
+                  <div class="scrollbar-track-btn scrollbar-down"></div>
+                </div>
+              </span></span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="form-row sep">
+      Формат отправки запроса: <span class="req">•</span>
+      <label><input type="radio" name="var[send_format]" value="1"><i></i><span>E-mail (запрос в текстовом
+          формате)</span></label>
+      <label><input type="radio" name="var[send_format]" value="1"><i></i><span>E-mail (приглашение на внесение ставок в
+          системе)</span></label>
+    </div>
+  </div>
+
+
+  <div class="form-block-title">Рейтинг</div>
+  <div class="form-block">
+
+    <div class="form-row-sm">
+      <div class="title">Рейтинг в системе:</div>
+      <app-rating name="rating_nps" formControlName="rating_nps"></app-rating>
+      <div class="link">
+        <a href="#">Подробнее</a>
+      </div>
+    </div>
+    <div class="form-row-sm">
+      <div class="title">Моя оценка подрядчика:</div>
+      <app-rating name="user_rating_nps" formControlName="user_rating_nps"></app-rating>
+      <div class="link">
+        <a href="#">Подробнее</a>
+      </div>
+    </div>
+    <div class="form-row-sm">
+      <div class="title">Отзывы по работе с подрядчиком:</div>
+      <div class="data flags">
+        <span class="plus">{{ contractor.review_positive_count }}</span>
+        <span class="minus">{{ contractor.review_negative_count }}</span>
+        <span class="neutral">{{ contractor.review_neutral_count }}</span>
+      </div>
+      <div class="link"><a href="#">Подробнее</a></div>
+    </div>
+    <div class="form-row-sm">
+      <div class="title">Всего выполнено перевозок:</div>
+      <div class="data">80</div>
+      <div class="link"><a href="#">Подробнее</a></div>
+    </div>
+    <div class="form-row-sm">
+      <div class="title"> % выигранных торгов:</div>
+      <div class="data flags">
+        <span class="win">{{contractor.trade_success_count}}</span>
+        <span class="fail">{{contractor.trade_fail_count}}</span>
+      </div>
+      <div class="link"><a href="#">Подробнее</a></div>
+    </div>
+  </div>
+
+
+  <div class="user-item">
+    <div class="form-block-title">Контактное лицо №1<span class="btn v del">Удалить</span></div>
+    <div class="form-block">
+      <div class="form-item-layout">
+        <div class="form-item">
+          <div class="form-label">фамилия: <span class="req">•</span></div>
+          <div class="form-data"><input type="text" name="user[1][f]" value="" placeholder="—"></div>
+        </div>
+        <div class="form-item">
+          <div class="form-label">имя:</div>
+          <div class="form-data"><input type="text" name="user[1][i]" value="" placeholder="—"></div>
+        </div>
+        <div class="form-item">
+          <div class="form-label">отчество: <span class="req">•</span></div>
+          <div class="form-data"><input type="text" name="user[1][o]" value="" placeholder="—"></div>
+        </div>
+        <div class="form-item">
+          <div class="form-label">должность: <span class="req">•</span></div>
+          <div class="form-data"><input type="text" name="user[1][position]" value="" placeholder="—"></div>
+        </div>
+      </div>
+      <div class="form-item-layout">
+        <div class="form-item">
+          <div class="form-label">местонахождение офиса:</div>
+          <div class="form-data"><input type="text" name="user[1][place]" value="" placeholder="—"></div>
+        </div>
+        <div class="form-item">
+          <div class="form-label">офисный телефон: <span class="req">•</span></div>
+          <div class="form-data"><input type="text" name="user[1][phone]" value="" placeholder="—"></div>
+        </div>
+        <div class="form-item">
+          <div class="form-label">мобильный телефон:</div>
+          <div class="form-data"><input type="text" name="user[1][mobile_phone]" value="" placeholder="—"></div>
+        </div>
+        <div class="form-item">
+          <div class="form-label">e-mail: <span class="req">•</span></div>
+          <div class="form-data"><input type="text" name="user[1][email]" value="" placeholder="—"></div>
+        </div>
+      </div>
+      <div class="form-item-layout">
+        <div class="form-item">
+          <div class="form-label">skype:</div>
+          <div class="form-data"><input type="text" name="user[1][social_skype]" value="" placeholder="—"></div>
+        </div>
+        <div class="form-item">
+          <div class="form-label">telegram:</div>
+          <div class="form-data"><input type="text" name="user[1][social_tg]" value="" placeholder="—"></div>
+        </div>
+        <div class="form-item">
+          <div class="form-label">whatsapp:</div>
+          <div class="form-data"><input type="text" name="user[1][social_wa]" value="" placeholder="—"></div>
+        </div>
+        <div class="form-item">
+          <div class="form-label">WeChat:</div>
+          <div class="form-data"><input type="text" name="user[1][social_wc]" value="" placeholder="—"></div>
+        </div>
+      </div>
+      <div class="form-item-layout padd sep">
+        Ответственный за направления: <span class="req">•</span>
+        <label><input type="checkbox" class="check-all"><i></i><span>Все</span></label>
+        <label><input type="checkbox" name="user[1][responsible][]" value="import"><i></i><span>Импорт</span></label>
+        <label><input type="checkbox" name="user[1][responsible][]" value="export"><i></i><span>Экспорт</span></label>
+        <label><input type="checkbox" name="user[1][responsible][]" value="local"><i></i><span>Внутрироссийские
+            перевозки</span></label>
+      </div>
+      <div class="options">
+        <div class="lnk">
+          <div class="ttl">Зона ответственности</div>
+          <div class="link show"><span>Показать</span></div>
+        </div>
+        <div class="lnk-data">
+
+
+
+          <table class="t1">
+            <tbody>
+              <tr>
+                <th class="name">
+                  <div>Отправление в Китай из 4 стран:</div>
+                  <input type="text" name="" value="" placeholder="Добавить страну или регион...">
+                </th>
+                <th class="all bg s e">
+                  <div class="l">Все виды</div>
+                  <label><input type="checkbox" class="show-all"><i></i></label>
+                </th>
+                <th class=" s">
+                  <div class="l"><span class="ico air"></span><span>LCL</span></div>
+                  <label><input type="checkbox" class="show-all-col"><i></i></label>
+                </th>
+                <th class=" e">
+                  <div class="l"><span class="ico air"></span><span>FCL</span></div>
+                  <label><input type="checkbox" class="show-all-col"><i></i></label>
+                </th>
+                <th class=" bg s">
+                  <div class="l"><span class="ico road"></span><span>LCL</span></div>
+                  <label><input type="checkbox" class="show-all-col"><i></i></label>
+                </th>
+                <th class=" bg">
+                  <div class="l"><span class="ico road"></span><span>FCL</span></div>
+                  <label><input type="checkbox" class="show-all-col"><i></i></label>
+                </th>
+                <th class=" bg">
+                  <div class="l"><span class="ico road"></span><span>ADR</span></div>
+                  <label><input type="checkbox" class="show-all-col"><i></i></label>
+                </th>
+                <th class=" bg e">
+                  <div class="l"><span class="ico road"></span><span>REF</span></div>
+                  <label><input type="checkbox" class="show-all-col"><i></i></label>
+                </th>
+                <th class=" s">
+                  <div class="l"><span class="ico sea"></span><span>TEUS</span></div>
+                  <label><input type="checkbox" class="show-all-col"><i></i></label>
+                </th>
+                <th class="">
+                  <div class="l"><span class="ico sea"></span><span>LCL</span></div>
+                  <label><input type="checkbox" class="show-all-col"><i></i></label>
+                </th>
+                <th class=" e">
+                  <div class="l"><span class="ico sea"></span><span>СП</span></div>
+                  <label><input type="checkbox" class="show-all-col"><i></i></label>
+                </th>
+                <th class=" bg s">
+                  <div class="l"><span class="ico rail"></span><span>TEUS</span></div>
+                  <label><input type="checkbox" class="show-all-col"><i></i></label>
+                </th>
+                <th class=" bg">
+                  <div class="l"><span class="ico rail"></span><span>LCL</span></div>
+                  <label><input type="checkbox" class="show-all-col"><i></i></label>
+                </th>
+                <th class=" bg e">
+                  <div class="l"><span class="ico rail"></span><span>СП</span></div>
+                  <label><input type="checkbox" class="show-all-col"><i></i></label>
+                </th>
+              </tr>
+
+              <tr class="row">
+                <td class="name">
+                  <div><span>Албания</span><span class="del"></span></div>
+                </td>
+                <td class="bg s e">
+                  <label><input type="checkbox" class="show-all-row"><i></i></label>
+                </td>
+                <td class=" s">
+                  <label><input type="checkbox" class="show-all-col"><i></i></label>
+                </td>
+                <td class=" e">
+                  <label><input type="checkbox" class="show-all-col"><i></i></label>
+                </td>
+                <td class=" bg s">
+                  <label><input type="checkbox" class="show-all-col"><i></i></label>
+                </td>
+                <td class=" bg">
+                  <label><input type="checkbox" class="show-all-col"><i></i></label>
+                </td>
+                <td class=" bg">
+                  <label><input type="checkbox" class="show-all-col"><i></i></label>
+                </td>
+                <td class=" bg e">
+                  <label><input type="checkbox" class="show-all-col"><i></i></label>
+                </td>
+                <td class=" s">
+                  <label><input type="checkbox" class="show-all-col"><i></i></label>
+                </td>
+                <td class="">
+                  <label><input type="checkbox" class="show-all-col"><i></i></label>
+                </td>
+                <td class=" e">
+                  <label><input type="checkbox" class="show-all-col"><i></i></label>
+                </td>
+                <td class=" bg s">
+                  <label><input type="checkbox" class="show-all-col"><i></i></label>
+                </td>
+                <td class=" bg">
+                  <label><input type="checkbox" class="show-all-col"><i></i></label>
+                </td>
+                <td class=" bg e">
+                  <label><input type="checkbox" class="show-all-col"><i></i></label>
+                </td>
+              </tr>
+              <tr class="row">
+                <td class="name">
+                  <div><span>Россия</span><span class="del"></span></div>
+                </td>
+                <td class="bg s e">
+                  <label><input type="checkbox" class="show-all-row"><i></i></label>
+                </td>
+                <td class=" s">
+                  <label><input type="checkbox" class="show-all-col"><i></i></label>
+                </td>
+                <td class=" e">
+                  <label><input type="checkbox" class="show-all-col"><i></i></label>
+                </td>
+                <td class=" bg s">
+                  <label><input type="checkbox" class="show-all-col"><i></i></label>
+                </td>
+                <td class=" bg">
+                  <label><input type="checkbox" class="show-all-col"><i></i></label>
+                </td>
+                <td class=" bg">
+                  <label><input type="checkbox" class="show-all-col"><i></i></label>
+                </td>
+                <td class=" bg e">
+                  <label><input type="checkbox" class="show-all-col"><i></i></label>
+                </td>
+                <td class=" s">
+                  <label><input type="checkbox" class="show-all-col"><i></i></label>
+                </td>
+                <td class="">
+                  <label><input type="checkbox" class="show-all-col"><i></i></label>
+                </td>
+                <td class=" e">
+                  <label><input type="checkbox" class="show-all-col"><i></i></label>
+                </td>
+                <td class=" bg s">
+                  <label><input type="checkbox" class="show-all-col"><i></i></label>
+                </td>
+                <td class=" bg">
+                  <label><input type="checkbox" class="show-all-col"><i></i></label>
+                </td>
+                <td class=" bg e">
+                  <label><input type="checkbox" class="show-all-col"><i></i></label>
+                </td>
+              </tr>
+              <tr class="row">
+                <td class="name">
+                  <div><span>Южные Сандвичевы Острова</span><span class="del"></span></div>
+                </td>
+                <td class="bg s e">
+                  <label><input type="checkbox" class="show-all-row"><i></i></label>
+                </td>
+                <td class=" s">
+                  <label><input type="checkbox" class="show-all-col"><i></i></label>
+                </td>
+                <td class=" e">
+                  <label><input type="checkbox" class="show-all-col"><i></i></label>
+                </td>
+                <td class=" bg s">
+                  <label><input type="checkbox" class="show-all-col"><i></i></label>
+                </td>
+                <td class=" bg">
+                  <label><input type="checkbox" class="show-all-col"><i></i></label>
+                </td>
+                <td class=" bg">
+                  <label><input type="checkbox" class="show-all-col"><i></i></label>
+                </td>
+                <td class=" bg e">
+                  <label><input type="checkbox" class="show-all-col"><i></i></label>
+                </td>
+                <td class=" s">
+                  <label><input type="checkbox" class="show-all-col"><i></i></label>
+                </td>
+                <td class="">
+                  <label><input type="checkbox" class="show-all-col"><i></i></label>
+                </td>
+                <td class=" e">
+                  <label><input type="checkbox" class="show-all-col"><i></i></label>
+                </td>
+                <td class=" bg s">
+                  <label><input type="checkbox" class="show-all-col"><i></i></label>
+                </td>
+                <td class=" bg">
+                  <label><input type="checkbox" class="show-all-col"><i></i></label>
+                </td>
+                <td class=" bg e">
+                  <label><input type="checkbox" class="show-all-col"><i></i></label>
+                </td>
+              </tr>
+              <tr class="row">
+                <td class="name">
+                  <div><span>Япония</span><span class="del"></span></div>
+                </td>
+                <td class="bg s e">
+                  <label><input type="checkbox" class="show-all-row"><i></i></label>
+                </td>
+                <td class=" s">
+                  <label><input type="checkbox" class="show-all-col"><i></i></label>
+                </td>
+                <td class=" e">
+                  <label><input type="checkbox" class="show-all-col"><i></i></label>
+                </td>
+                <td class=" bg s">
+                  <label><input type="checkbox" class="show-all-col"><i></i></label>
+                </td>
+                <td class=" bg">
+                  <label><input type="checkbox" class="show-all-col"><i></i></label>
+                </td>
+                <td class=" bg">
+                  <label><input type="checkbox" class="show-all-col"><i></i></label>
+                </td>
+                <td class=" bg e">
+                  <label><input type="checkbox" class="show-all-col"><i></i></label>
+                </td>
+                <td class=" s">
+                  <label><input type="checkbox" class="show-all-col"><i></i></label>
+                </td>
+                <td class="">
+                  <label><input type="checkbox" class="show-all-col"><i></i></label>
+                </td>
+                <td class=" e">
+                  <label><input type="checkbox" class="show-all-col"><i></i></label>
+                </td>
+                <td class=" bg s">
+                  <label><input type="checkbox" class="show-all-col"><i></i></label>
+                </td>
+                <td class=" bg">
+                  <label><input type="checkbox" class="show-all-col"><i></i></label>
+                </td>
+                <td class=" bg e">
+                  <label><input type="checkbox" class="show-all-col"><i></i></label>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <table class="t1">
+            <tbody>
+              <tr>
+                <th class="name">
+                  <div>Внутрироссийские<br>
+                    перевозки:</div>
+                </th>
+                <th class="all bg s e">
+                  <div class="l">Все виды</div>
+                  <label><input type="checkbox" class="show-all"><i></i></label>
+                </th>
+                <th class=" s">
+                  <div class="l"><span class="ico air"></span><span>LCL</span></div>
+                  <label><input type="checkbox" class="show-all-col"><i></i></label>
+                </th>
+                <th class=" e">
+                  <div class="l"><span class="ico air"></span><span>FCL</span></div>
+                  <label><input type="checkbox" class="show-all-col"><i></i></label>
+                </th>
+                <th class=" bg s">
+                  <div class="l"><span class="ico road"></span><span>LCL</span></div>
+                  <label><input type="checkbox" class="show-all-col"><i></i></label>
+                </th>
+                <th class=" bg">
+                  <div class="l"><span class="ico road"></span><span>FCL</span></div>
+                  <label><input type="checkbox" class="show-all-col"><i></i></label>
+                </th>
+                <th class=" bg">
+                  <div class="l"><span class="ico road"></span><span>ADR</span></div>
+                  <label><input type="checkbox" class="show-all-col"><i></i></label>
+                </th>
+                <th class=" bg e">
+                  <div class="l"><span class="ico road"></span><span>REF</span></div>
+                  <label><input type="checkbox" class="show-all-col"><i></i></label>
+                </th>
+                <th class=" s">
+                  <div class="l"><span class="ico sea"></span><span>TEUS</span></div>
+                  <label><input type="checkbox" class="show-all-col"><i></i></label>
+                </th>
+                <th class="">
+                  <div class="l"><span class="ico sea"></span><span>LCL</span></div>
+                  <label><input type="checkbox" class="show-all-col"><i></i></label>
+                </th>
+                <th class=" e">
+                  <div class="l"><span class="ico sea"></span><span>СП</span></div>
+                  <label><input type="checkbox" class="show-all-col"><i></i></label>
+                </th>
+                <th class=" bg s">
+                  <div class="l"><span class="ico rail"></span><span>TEUS</span></div>
+                  <label><input type="checkbox" class="show-all-col"><i></i></label>
+                </th>
+                <th class=" bg">
+                  <div class="l"><span class="ico rail"></span><span>LCL</span></div>
+                  <label><input type="checkbox" class="show-all-col"><i></i></label>
+                </th>
+                <th class=" bg e">
+                  <div class="l"><span class="ico rail"></span><span>СП</span></div>
+                  <label><input type="checkbox" class="show-all-col"><i></i></label>
+                </th>
+              </tr>
+            </tbody>
+          </table>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="user-item">
+    <div class="form-block-title">Контактное лицо №2<span class="btn v add">Добавить</span></div>
+  </div>
+
+  <div class="hdr ftr">
+    <div class="title">
+    </div>
+    <div class="fn">
+      <span class="btn v save"><span>сохранить</span></span>
+      <span class="btn v del"><span>Удалить</span></span>
+      <span class="btn v cancel"><span>отмена</span></span>
+    </div>
+  </div>
+
+</form>

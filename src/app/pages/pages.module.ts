@@ -1,4 +1,4 @@
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
@@ -16,6 +16,8 @@ import { CurrencyComponent } from './components/currency/currency.component';
 import { ContractorComponent } from './components/contractor/contractor.component';
 import { PaginatorComponent } from './components/paginator/paginator.component';
 import { ContractorFilterComponent } from './components/contractor-filter/contractor-filter.component';
+import { ContractorEditorComponent } from './components/contractor-editor/contractor-editor.component';
+import { RatingComponent } from './components/rating/rating.component';
 
 
 
@@ -34,12 +36,15 @@ import { ContractorFilterComponent } from './components/contractor-filter/contra
     CurrencyComponent,
     ContractorComponent,
     PaginatorComponent,
-    ContractorFilterComponent
+    ContractorFilterComponent,
+    ContractorEditorComponent,
+    RatingComponent
   ],
   imports: [
     CommonModule,
     PagesRoutingModule,
     FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class PagesModule { }
