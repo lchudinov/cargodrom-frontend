@@ -15,6 +15,7 @@ import { GuideComponent } from './components/guide/guide.component';
 import { CurrencyComponent } from './components/currency/currency.component';
 import { ContractorComponent } from './components/contractor/contractor.component';
 import { PaginatorComponent } from './components/paginator/paginator.component';
+import { ContractorFilterComponent } from './components/contractor-filter/contractor-filter.component';
 
 
 
@@ -32,7 +33,8 @@ import { PaginatorComponent } from './components/paginator/paginator.component';
     GuideComponent,
     CurrencyComponent,
     ContractorComponent,
-    PaginatorComponent
+    PaginatorComponent,
+    ContractorFilterComponent
   ],
   imports: [
     CommonModule,
