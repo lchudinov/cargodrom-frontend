@@ -56,5 +56,9 @@ export class ContractorEditorComponent implements OnInit {
   goBack(): void {
     this.location.back();
   }
+  
+  deleteContact(i: number): void {
+    throw new Error('not implemented yet');
+  }
 
 }

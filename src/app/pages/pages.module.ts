@@ -18,6 +18,7 @@ import { PaginatorComponent } from './components/paginator/paginator.component';
 import { ContractorFilterComponent } from './components/contractor-filter/contractor-filter.component';
 import { ContractorEditorComponent } from './components/contractor-editor/contractor-editor.component';
 import { RatingComponent } from './components/rating/rating.component';
+import { ContactEditorComponent } from './components/contact-editor/contact-editor.component';
 
 
 
@@ -38,7 +39,8 @@ import { RatingComponent } from './components/rating/rating.component';
     PaginatorComponent,
     ContractorFilterComponent,
     ContractorEditorComponent,
-    RatingComponent
+    RatingComponent,
+    ContactEditorComponent
   ],
   imports: [
     CommonModule,
