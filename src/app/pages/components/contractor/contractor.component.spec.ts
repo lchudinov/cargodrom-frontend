@@ -1,3 +1,4 @@
+import { RouterTestingModule } from '@angular/router/testing';
 import { ContractorFilterComponent } from '../contractor-filter/contractor-filter.component';
 import { CommonModule } from '@angular/common';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
@@ -17,6 +18,7 @@ describe('ContractorComponent', () => {
         HttpClientTestingModule,
         CommonModule,
         FormsModule,
+        RouterTestingModule
       ],
       declarations: [
         ContractorComponent,

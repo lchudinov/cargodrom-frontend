@@ -1,13 +1,14 @@
-<div class="edit-form">
+<form class="edit-form" [formGroup]="contractorForm">
   <div class="hdr">
     <div class="title">
-      <div>Редактирование подрядчика</div>
+      <div *ngIf="isEditMode">Редактирование подрядчика</div>
+      <div *ngIf="!isEditMode">Новый подрядчик</div>
       <div class="req-fields">Обязательные поля: <span class="req">•</span></div>
     </div>
     <div class="fn">
-      <span class="btn v save"><span>сохранить</span></span>
+      <span class="btn v save"><span>Сохранить</span></span>
       <span class="btn v del"><span>Удалить</span></span>
-      <span class="btn v cancel"><span>отмена</span></span>
+      <span class="btn v cancel" (click)="goBack()"><span>Отмена</span></span>
     </div>
   </div>
 
@@ -25,11 +26,11 @@
       <div class="form-item-layout">
         <div class="form-item">
           <div class="form-label">Наименование подрядчика: <span class="req">•</span></div>
-          <div class="form-data"><input type="text" name="" value="" placeholder="—"></div>
+          <div class="form-data"><input type="text" name="name" formControlName="name" placeholder="—"></div>
         </div>
         <div class="form-item">
           <div class="form-label">Идентификатор (ИНН, Rec № и пр.):</div>
-          <div class="form-data"><input type="text" name="" value="" placeholder="—"></div>
+          <div class="form-data"><input type="text" name="ind" formControlName="ind" placeholder="—"></div>
         </div>
         <div class="form-item">
           <div class="form-label">Страна нахождения: <span class="req">•</span></div>
@@ -59,22 +60,22 @@
         </div>
         <div class="form-item">
           <div class="form-label">город: <span class="req">•</span></div>
-          <div class="form-data"><input type="text" name="" value="" placeholder="—"></div>
+          <div class="form-data"><input type="text" name="city_name" formControlName="city_name" placeholder="—"></div>
         </div>
       </div>
 
       <div class="form-item-layout">
         <div class="form-item w50">
           <div class="form-label">адрес:</div>
-          <div class="form-data"><input type="text" name="" value="" placeholder="—"></div>
+          <div class="form-data"><input type="text" name="address" formControlName="address" placeholder="—"></div>
         </div>
         <div class="form-item">
           <div class="form-label">общий телефон:</div>
-          <div class="form-data"><input type="text" name="" value="" placeholder="—"></div>
+          <div class="form-data"><input type="text" name="phone" formControlName="phone" placeholder="—"></div>
         </div>
         <div class="form-item">
           <div class="form-label">сайт компании:</div>
-          <div class="form-data"><input type="text" name="" value="" placeholder="—"></div>
+          <div class="form-data"><input type="text" name="web" formControlName="web" placeholder="—"></div>
 
         </div>
       </div>
@@ -202,21 +203,24 @@
 
     <div class="form-row-sm">
       <div class="title">Рейтинг в системе:</div>
-      <div class="data">7/10 NPS <span class="stars"><span class="sel"></span><span class="sel"></span><span
-            class="sel"></span><span class="sel"></span><span class="sel"></span><span class="sel"></span><span
-            class="sel"></span><span></span><span></span><span></span></span></div>
-      <div class="link"><a href="#">Подробнее</a></div>
+      <app-rating name="rating_nps" formControlName="rating_nps"></app-rating>
+      <div class="link">
+        <a href="#">Подробнее</a>
+      </div>
     </div>
     <div class="form-row-sm">
       <div class="title">Моя оценка подрядчика:</div>
-      <div class="data">8/10 NPS <span class="stars"><span class="sel"></span><span class="sel"></span><span
-            class="sel"></span><span class="sel"></span><span class="sel"></span><span class="sel"></span><span
-            class="sel"></span><span class="sel"></span><span></span><span></span></span></div>
-      <div class="link"><a href="#">Подробнее</a></div>
+      <app-rating name="user_rating_nps" formControlName="user_rating_nps"></app-rating>
+      <div class="link">
+        <a href="#">Подробнее</a>
+      </div>
     </div>
     <div class="form-row-sm">
       <div class="title">Отзывы по работе с подрядчиком:</div>
-      <div class="data flags"><span class="plus">40</span><span class="minus">35</span><span class="neutral">5</span>
+      <div class="data flags">
+        <span class="plus">{{ contractor.review_positive_count }}</span>
+        <span class="minus">{{ contractor.review_negative_count }}</span>
+        <span class="neutral">{{ contractor.review_neutral_count }}</span>
       </div>
       <div class="link"><a href="#">Подробнее</a></div>
     </div>
@@ -226,8 +230,11 @@
       <div class="link"><a href="#">Подробнее</a></div>
     </div>
     <div class="form-row-sm">
-      <div class="title">% выигранных торгов:</div>
-      <div class="data flags"><span class="win">75</span><span class="fail">25</span></div>
+      <div class="title"> {{ contractor.trade_percent }} выигранных торгов:</div>
+      <div class="data flags">
+        <span class="win">{{contractor.trade_success_count}}</span>
+        <span class="fail">{{contractor.trade_fail_count}}</span>
+      </div>
       <div class="link"><a href="#">Подробнее</a></div>
     </div>
   </div>
@@ -629,4 +636,4 @@
     </div>
   </div>
 
-</div>
+</form>

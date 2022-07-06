@@ -1,4 +1,8 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RatingComponent } from '../rating/rating.component';
 
 import { ContractorEditorComponent } from './contractor-editor.component';
 
@@ -8,7 +12,13 @@ describe('ContractorEditorComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ContractorEditorComponent ]
+      imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        HttpClientTestingModule,
+        RouterTestingModule,
+      ],
+      declarations: [ ContractorEditorComponent, RatingComponent ]
     })
     .compileComponents();
 
