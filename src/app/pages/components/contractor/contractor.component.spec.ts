@@ -1,3 +1,4 @@
+import { ContactEditorComponent } from './../contact-editor/contact-editor.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ContractorFilterComponent } from '../contractor-filter/contractor-filter.component';
 import { CommonModule } from '@angular/common';
@@ -23,7 +24,8 @@ describe('ContractorComponent', () => {
       declarations: [
         ContractorComponent,
         PaginatorComponent,
-        ContractorFilterComponent
+        ContractorFilterComponent,
+        ContactEditorComponent
       ]
     })
       .compileComponents();

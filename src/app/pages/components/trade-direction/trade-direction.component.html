@@ -1,0 +1,9 @@
+<div class="form-item-layout padd sep">
+  Ответственный за направления:
+  <span class="req">•</span>
+  <label *ngFor="let direction of directions; let i=index">
+    <input type="checkbox" [checked]="direction.checked" (change)="onChange(i)">
+    <i></i>
+    <span>{{ direction.label }}</span>
+  </label>
+</div>
