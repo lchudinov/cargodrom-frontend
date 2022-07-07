@@ -19,6 +19,7 @@ import { ContractorFilterComponent } from './components/contractor-filter/contra
 import { ContractorEditorComponent } from './components/contractor-editor/contractor-editor.component';
 import { RatingComponent } from './components/rating/rating.component';
 import { ContactEditorComponent } from './components/contact-editor/contact-editor.component';
+import { TradeDirectionComponent } from './components/trade-direction/trade-direction.component';
 
 
 
@@ -40,7 +41,8 @@ import { ContactEditorComponent } from './components/contact-editor/contact-edit
     ContractorFilterComponent,
     ContractorEditorComponent,
     RatingComponent,
-    ContactEditorComponent
+    ContactEditorComponent,
+    TradeDirectionComponent
   ],
   imports: [
     CommonModule,

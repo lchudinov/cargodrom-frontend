@@ -242,7 +242,7 @@
 
   <div class="user-item" *ngFor="let contact of contractor.contacts; let i=index">
     <div class="form-block-title">Контактное лицо №{{i + 1}}<span class="btn v del" (click)="deleteContact(i)">Удалить</span></div>
-    <app-contact-editor></app-contact-editor>
+    <app-contact-editor [contact]="contact"></app-contact-editor>
   </div>
 
   <div class="user-item">

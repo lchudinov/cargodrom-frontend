@@ -1,20 +1,20 @@
-<div class="form-block">
+<form class="form-block" [formGroup]="contactForm">
   <div class="form-item-layout">
     <div class="form-item">
       <div class="form-label">фамилия: <span class="req">•</span></div>
-      <div class="form-data"><input type="text" name="user[1][f]" value="" placeholder="—"></div>
+      <div class="form-data"><input type="text" name="name_f" formControlName="name_f" placeholder="—"></div>
     </div>
     <div class="form-item">
       <div class="form-label">имя:</div>
-      <div class="form-data"><input type="text" name="user[1][i]" value="" placeholder="—"></div>
+      <div class="form-data"><input type="text"  name="name_i" formControlName="name_i" placeholder="—"></div>
     </div>
     <div class="form-item">
       <div class="form-label">отчество: <span class="req">•</span></div>
-      <div class="form-data"><input type="text" name="user[1][o]" value="" placeholder="—"></div>
+      <div class="form-data"><input type="text"  name="name_o" formControlName="name_o" placeholder="—"></div>
     </div>
     <div class="form-item">
       <div class="form-label">должность: <span class="req">•</span></div>
-      <div class="form-data"><input type="text" name="user[1][position]" value="" placeholder="—"></div>
+      <div class="form-data"><input type="text" name="position" formControlName="position" placeholder="—"></div>
     </div>
   </div>
   <div class="form-item-layout">
@@ -24,43 +24,36 @@
     </div>
     <div class="form-item">
       <div class="form-label">офисный телефон: <span class="req">•</span></div>
-      <div class="form-data"><input type="text" name="user[1][phone]" value="" placeholder="—"></div>
+      <div class="form-data"><input type="text" name="phone" formControlName="phone" placeholder="—"></div>
     </div>
     <div class="form-item">
       <div class="form-label">мобильный телефон:</div>
-      <div class="form-data"><input type="text" name="user[1][mobile_phone]" value="" placeholder="—"></div>
+      <div class="form-data"><input type="text" name="mobile_phone" formControlName="mobile_phone" placeholder="—"></div>
     </div>
     <div class="form-item">
       <div class="form-label">e-mail: <span class="req">•</span></div>
-      <div class="form-data"><input type="text" name="user[1][email]" value="" placeholder="—"></div>
+      <div class="form-data"><input type="text" name="email" formControlName="email" placeholder="—"></div>
     </div>
   </div>
   <div class="form-item-layout">
     <div class="form-item">
       <div class="form-label">skype:</div>
-      <div class="form-data"><input type="text" name="user[1][social_skype]" value="" placeholder="—"></div>
+      <div class="form-data"><input type="text" name="skype" formControlName="skype" placeholder="—"></div>
     </div>
     <div class="form-item">
       <div class="form-label">telegram:</div>
-      <div class="form-data"><input type="text" name="user[1][social_tg]" value="" placeholder="—"></div>
+      <div class="form-data"><input type="text" name="telegram" formControlName="telegram" placeholder="—"></div>
     </div>
     <div class="form-item">
       <div class="form-label">whatsapp:</div>
-      <div class="form-data"><input type="text" name="user[1][social_wa]" value="" placeholder="—"></div>
+      <div class="form-data"><input type="text" name="whatsapp" formControlName="whatsapp" placeholder="—"></div>
     </div>
     <div class="form-item">
       <div class="form-label">WeChat:</div>
-      <div class="form-data"><input type="text" name="user[1][social_wc]" value="" placeholder="—"></div>
+      <div class="form-data"><input type="text" name="wechat" formControlName="wechat" placeholder="—"></div>
     </div>
   </div>
-  <div class="form-item-layout padd sep">
-    Ответственный за направления: <span class="req">•</span>
-    <label><input type="checkbox" class="check-all"><i></i><span>Все</span></label>
-    <label><input type="checkbox" name="user[1][responsible][]" value="import"><i></i><span>Импорт</span></label>
-    <label><input type="checkbox" name="user[1][responsible][]" value="export"><i></i><span>Экспорт</span></label>
-    <label><input type="checkbox" name="user[1][responsible][]" value="local"><i></i><span>Внутрироссийские
-        перевозки</span></label>
-  </div>
+  <app-trade-direction formControlName="responsible_direction"></app-trade-direction>
   <div class="options">
     <div class="lnk">
       <div class="ttl">Зона ответственности</div>
@@ -375,4 +368,5 @@
 
     </div>
   </div>
-</div>
+</form>
+<pre>{{ contactForm.value | json }}</pre>
