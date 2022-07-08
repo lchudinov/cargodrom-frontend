@@ -60,5 +60,9 @@ export class ContractorEditorComponent implements OnInit {
   deleteContact(i: number): void {
     throw new Error('not implemented yet');
   }
+  
+  addContact() {
+    this.contractor.contacts?.push({contractor_id: this.contractor.id});
+  }
 
 }

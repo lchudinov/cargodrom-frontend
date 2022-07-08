@@ -10,10 +10,10 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ContactEditorComponent implements OnInit {
 
-  @Input() contact?: Contact;
+  @Input() contact: Partial<Contact> = {};
   contactForm: FormGroup;
 
-   constructor(
+  constructor(
     private fb: FormBuilder,
     private contractorService: ContractorService,
   ) {
@@ -38,11 +38,35 @@ export class ContactEditorComponent implements OnInit {
       this.contactForm.patchValue(this.contact);
     }
   }
+  
+  get isEditMode(): boolean {
+    return typeof this.contact.id === 'number'
+  }
 
   save(): void {
-    this.contractorService.contractorContactUpdate({ body: this.contactForm.value }).subscribe(
+    const body = {
+      ... this.contactForm.value,
+      id: this.contact.id
+    };
+    this.contractorService.contractorContactUpdate({ body }).subscribe(
       {
         next: () => console.log(`contact saved`),
+        error: (err) => console.log(`failed to save contact`, err),
+      }
+    )
+  }
+
+  create(): void {
+    const body = {
+      ... this.contactForm.value,
+      contractor_id: this.contact.contractor_id
+    };
+    this.contractorService.contractorContactCreate({ body }).subscribe(
+      {
+        next: ({id}) => {
+          this.contact.id = id; 
+          console.log(`contact created, id: `, id);
+        },
         error: (err) => console.log(`failed to save contact`, err),
       }
     )
