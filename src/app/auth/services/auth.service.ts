@@ -11,11 +11,12 @@ const TOKEN_INFO_KEY = 'com.cargodrom.token-info';
 export class AuthService {
 
   private tokenInfo?: TokenInfo;
+  readonly storage = window.sessionStorage;
 
   constructor(
     private userService: UserService
   ) {
-    this.loadTokenFromLocalStorage();
+    this.loadTokenFromStorage();
   }
 
 
@@ -23,7 +24,7 @@ export class AuthService {
     return this.userService.userLogin({ body: { login, password } })
       .pipe(
         tap(res => this.tokenInfo = res),
-        tap(() => this.saveTokenToLocalStorage()),
+        tap(() => this.saveTokenToStorage()),
         map(() => undefined)
       );
   }
@@ -42,8 +43,8 @@ export class AuthService {
     return this.tokenInfo?.token;
   }
 
-  private loadTokenFromLocalStorage(): void {
-    const tokenInfoString = window.localStorage.getItem(TOKEN_INFO_KEY);
+  private loadTokenFromStorage(): void {
+    const tokenInfoString = this.storage.getItem(TOKEN_INFO_KEY);
     if (!tokenInfoString) {
       return;
     }
@@ -57,12 +58,12 @@ export class AuthService {
     }
   }
 
-  private saveTokenToLocalStorage(): void {
-    window.localStorage.setItem(TOKEN_INFO_KEY, JSON.stringify(this.tokenInfo));
+  private saveTokenToStorage(): void {
+    this.storage.setItem(TOKEN_INFO_KEY, JSON.stringify(this.tokenInfo));
   }
 
   private removeTokenFromLocalStorage(): void {
-    window.localStorage.removeItem(TOKEN_INFO_KEY);
+    this.storage.removeItem(TOKEN_INFO_KEY);
   }
 
   isTokenExpired(): boolean {
@@ -82,7 +83,7 @@ export class AuthService {
     const body = { refresh_token: this.tokenInfo!.refresh_token };
     return this.userService.userUpdateToken({body}).pipe(
       tap(res => this.tokenInfo = res as TokenInfo),
-      tap(() => this.saveTokenToLocalStorage()),
+      tap(() => this.saveTokenToStorage()),
       map(() => undefined)
     );
   }
