@@ -40,7 +40,7 @@ export interface Contractor {
   trade_success_count?: number;
   trade_fail_count?: number;
   contact_count?: number;
-  contacts?: Contact[];
+  contacts?: Partial<Contact>[];
   contact_name?: string;
   contact_info?: string;
   time_add?: string;
