@@ -1,17 +1,19 @@
 import { ContractorService } from './../../../api/services/contractor.service';
 import { Contact } from './../../../api/custom_models/contact';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { takeUntil, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-contact-editor',
   templateUrl: './contact-editor.component.html',
   styleUrls: ['./contact-editor.component.scss']
 })
-export class ContactEditorComponent implements OnInit {
+export class ContactEditorComponent implements OnInit, OnDestroy {
 
   @Input() contact: Partial<Contact> = {};
   contactForm: FormGroup;
+  destroy$ = new Subject<void>();
 
   constructor(
     private fb: FormBuilder,
@@ -37,39 +39,18 @@ export class ContactEditorComponent implements OnInit {
     if (this.contact) {
       this.contactForm.patchValue(this.contact);
     }
+    this.contactForm.valueChanges
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(value => Object.assign(this.contact, value || {}));
   }
   
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
   get isEditMode(): boolean {
     return typeof this.contact.id === 'number'
-  }
-
-  save(): void {
-    const body = {
-      ... this.contactForm.value,
-      id: this.contact.id
-    };
-    this.contractorService.contractorContactUpdate({ body }).subscribe(
-      {
-        next: () => console.log(`contact saved`),
-        error: (err) => console.log(`failed to save contact`, err),
-      }
-    )
-  }
-
-  create(): void {
-    const body = {
-      ... this.contactForm.value,
-      contractor_id: this.contact.contractor_id
-    };
-    this.contractorService.contractorContactCreate({ body }).subscribe(
-      {
-        next: ({id}) => {
-          this.contact.id = id; 
-          console.log(`contact created, id: `, id);
-        },
-        error: (err) => console.log(`failed to save contact`, err),
-      }
-    )
   }
 
 }
