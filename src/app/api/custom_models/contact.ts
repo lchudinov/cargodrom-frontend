@@ -23,3 +23,12 @@ export interface Contact {
   city_name: string;
 }
 
+export type ContactStatus = 'old' | 'new' | 'removed' | 'never';
+
+export interface ContactWithStatus {
+  status: ContactStatus,
+  contact: Partial<Contact>
+};
+
+export type ContactList = ContactWithStatus[];
+
