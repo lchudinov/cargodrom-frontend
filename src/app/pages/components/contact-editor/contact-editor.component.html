@@ -57,9 +57,11 @@
   <div class="options">
     <div class="lnk">
       <div class="ttl">Зона ответственности</div>
-      <div class="link show"><span>Показать</span></div>
+      <div class="link show" [ngClass]="showResponsibilities ? 'hide' : 'show'" (click)="showResponsibilities = !showResponsibilities">
+        <span>{{ showResponsibilities ? 'Скрыть' : 'Показать' }}</span>
+      </div>
     </div>
-    <div class="lnk-data">
+    <div class="lnk-data" [ngStyle]="{'display': showResponsibilities ? 'block' : 'none' }">
 
 
 

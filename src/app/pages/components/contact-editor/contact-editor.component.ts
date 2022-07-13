@@ -14,6 +14,7 @@ export class ContactEditorComponent implements OnInit, OnDestroy {
   @Input() contact: Partial<Contact> = {};
   contactForm: FormGroup;
   destroy$ = new Subject<void>();
+  showResponsibilities = false;
 
   constructor(
     private fb: FormBuilder,
