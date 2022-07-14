@@ -1,12 +1,9 @@
-import { ContactListService } from './../../services/contact-list.service';
-import { Contact, ContactList } from './../../../api/custom_models/contact';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Contractor } from './../../../api/custom_models/contractor';
 import { ContractorService } from './../../../api/services/contractor.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { mergeMap } from 'rxjs';
 
 @Component({
   selector: 'app-contractor-editor',
@@ -23,7 +20,6 @@ export class ContractorEditorComponent implements OnInit {
     private route: ActivatedRoute,
     private contractorService: ContractorService,
     private location: Location,
-    private contactListService: ContactListService,
     private fb: FormBuilder
   ) {
     this.contractorForm = this.fb.group({
@@ -34,7 +30,8 @@ export class ContractorEditorComponent implements OnInit {
       phone: ['', []],
       web: ['', []],
       rating_nps: [0, []],
-      user_rating_nps: [0, []]
+      user_rating_nps: [0, []],
+      contacts: fb.array([])
     });
   }
 
@@ -44,8 +41,6 @@ export class ContractorEditorComponent implements OnInit {
     this.isEditMode = segments[1] === 'edit';
     if (this.isEditMode) {
       this.getContractor();
-    } else {
-      this.contactListService.setContacts([]);
     }
   }
 
@@ -55,8 +50,9 @@ export class ContractorEditorComponent implements OnInit {
       .subscribe(contractor => {
         console.table(contractor);
         this.contractor = contractor as Contractor;
+        const control = this.contacts;
+        this.contractor.contacts?.forEach(contact => control.push(this.fb.control(contact)));
         this.contractorForm.patchValue(this.contractor);
-        this.contactListService.setContacts(this.contractor.contacts || []);
       });
   }
 
@@ -65,21 +61,22 @@ export class ContractorEditorComponent implements OnInit {
   }
 
   removeContact(i: number): void {
-    this.contactListService.removeByIndex(i);
+    this.contacts.removeAt(i);
   }
 
   addContact() {
-    this.contactListService.addContact({ contractor_id: this.contractor.id! });
+    this.contacts.push(this.fb.control({
+      contractor_id: this.contractor.id
+    }))
   }
 
-  get contacts(): Partial<Contact>[] {
-    return this.contactListService.contacts;
+  get contacts() {
+    return <FormArray>this.contractorForm.get('contacts');
   }
 
   save(): void {
     const body = { ...this.contractorForm.value, id: this.contractor.id! };
     this.contractorService.contractorUpdate({ body }).pipe(
-      mergeMap(() => this.contactListService.saveContacts())
     ).subscribe({
       next: () => console.log(`contractor saved`),
       error: (err) => console.log(`failed to save contractor`, err)

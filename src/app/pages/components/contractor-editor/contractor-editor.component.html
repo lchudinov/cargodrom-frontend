@@ -240,13 +240,15 @@
   </div>
 
 
-  <div class="user-item" *ngFor="let contact of contacts; let i=index">
+  <div formArrayName="contacts">
+  <div class="user-item" *ngFor="let contact of contacts.controls; let i=index">
     <div class="form-block-title">Контактное лицо №{{i + 1}}<span class="btn v del" (click)="removeContact(i)">Удалить</span></div>
-    <app-contact-editor [contact]="contact"></app-contact-editor>
+    <app-contact-editor [formControlName]="i"></app-contact-editor>
   </div>
 
   <div class="user-item">
-    <div class="form-block-title">Контактное лицо №{{(contacts ? contacts.length : 0) + 1}}<span class="btn v add" (click)=addContact()>Добавить</span></div>
+    <div class="form-block-title">Контактное лицо №{{contacts.length + 1}}<span class="btn v add" (click)=addContact()>Добавить</span></div>
+  </div>
   </div>
 
   <div class="hdr ftr">
@@ -260,3 +262,7 @@
   </div>
 
 </form>
+
+<pre>
+  {{ contractorForm.value | json }}
+</pre>
