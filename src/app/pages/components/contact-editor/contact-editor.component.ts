@@ -2,6 +2,7 @@ import { Contact } from './../../../api/custom_models/contact';
 import { FormBuilder, FormGroup, Validators, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-contact-editor',
@@ -22,13 +23,14 @@ export class ContactEditorComponent implements OnInit, OnDestroy, ControlValueAc
 
   onChange = (value: Partial<Contact>) => { };
   onTouched = () => { };
+  destroy$ = new Subject<void>();
 
   constructor(
     private fb: FormBuilder,
   ) {
     this.contactForm = this.fb.group({
-      id: [''],
-      contractor_id: [''],
+      id: [],
+      contractor_id: [],
       name_f: ['', [Validators.required]],
       name_i: ['', [Validators.required]],
       name_o: ['', [Validators.required]],
@@ -58,11 +60,14 @@ export class ContactEditorComponent implements OnInit, OnDestroy, ControlValueAc
   }
 
   ngOnInit(): void {
-
+    this.contactForm.valueChanges
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(value => this.onChange(value));
   }
 
   ngOnDestroy(): void {
-
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
 }

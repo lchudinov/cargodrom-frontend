@@ -23,6 +23,7 @@ export class ContractorEditorComponent implements OnInit {
     private fb: FormBuilder
   ) {
     this.contractorForm = this.fb.group({
+      id: [''],
       address: ['', []],
       name: ['', [Validators.required]],
       ind: ['', [Validators.required]],
@@ -50,8 +51,9 @@ export class ContractorEditorComponent implements OnInit {
       .subscribe(contractor => {
         console.table(contractor);
         this.contractor = contractor as Contractor;
-        const control = this.contacts;
-        this.contractor.contacts?.forEach(contact => control.push(this.fb.control(contact)));
+        const contactsControls = this.contacts;
+        this.contractor.contacts?.forEach(contact => contact.contractor_id = contractor.id);
+        this.contractor.contacts?.forEach(contact => contactsControls.push(this.fb.control(contact)));
         this.contractorForm.patchValue(this.contractor);
       });
   }
@@ -75,7 +77,7 @@ export class ContractorEditorComponent implements OnInit {
   }
 
   save(): void {
-    const body = { ...this.contractorForm.value, id: this.contractor.id! };
+    const body = this.contractorForm.value;
     this.contractorService.contractorUpdate({ body }).pipe(
     ).subscribe({
       next: () => console.log(`contractor saved`),

@@ -2,7 +2,6 @@ import { ContractorService } from './../../../api/services/contractor.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { Contractor } from '../../../api/custom_models';
 import { generateMockupContractors } from './contractor.mockup';
-import { ThisReceiver } from '@angular/compiler';
 
 @Component({
   selector: 'app-contractor',
