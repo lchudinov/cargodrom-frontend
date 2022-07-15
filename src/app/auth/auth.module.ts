@@ -6,6 +6,7 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LogoutComponent } from './components/logout/logout.component';
+import { CheckCodeComponent } from './components/check-code/check-code.component';
 
 
 
@@ -13,7 +14,8 @@ import { LogoutComponent } from './components/logout/logout.component';
   declarations: [
     LoginComponent,
     RegisterComponent,
-    LogoutComponent
+    LogoutComponent,
+    CheckCodeComponent
   ],
   imports: [
     CommonModule,
