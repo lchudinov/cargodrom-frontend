@@ -1,3 +1,4 @@
+import { MaterialModule } from './../material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -48,7 +49,8 @@ import { TradeDirectionComponent } from './components/trade-direction/trade-dire
     CommonModule,
     PagesRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MaterialModule,
   ]
 })
 export class PagesModule { }

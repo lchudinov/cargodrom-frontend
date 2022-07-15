@@ -1,3 +1,4 @@
+import { MaterialModule } from './../../../material/material.module';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -14,7 +15,8 @@ describe('LoginComponent', () => {
       imports: [HttpClientTestingModule,
          FormsModule,
           ReactiveFormsModule,
-          RouterTestingModule
+          RouterTestingModule,
+          MaterialModule
         ],
       declarations: [LoginComponent]
     })
