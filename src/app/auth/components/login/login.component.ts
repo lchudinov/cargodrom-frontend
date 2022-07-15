@@ -1,9 +1,12 @@
+import { ErrorDialogComponent } from './../../../material/components/error-dialog/error-dialog.component';
+import { ErrorDialogData } from './../../../material/components/error-dialog/error-dialog-data';
 import { Router } from '@angular/router';
 import { AuthService } from './../../services/auth.service';
 import { UserService } from './../../../api/services/user.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { finalize } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-login',
@@ -19,6 +22,7 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private auth: AuthService,
     private router: Router,
+    public dialog: MatDialog
   ) {
     this.loginForm = this.fb.group({
       login: ['', [Validators.required]],
@@ -47,8 +51,11 @@ export class LoginComponent implements OnInit {
   }
 
   processLoginError(err: any): void {
-    console.log(err);
-    this.errorMessage = JSON.stringify(err);
+    const data: ErrorDialogData = {
+      title: 'Что-то пошло не так',
+      errors: [err.error.error_message]
+    }
+    this.dialog.open(ErrorDialogComponent, {data});
   }
 
   processLogin(): void {

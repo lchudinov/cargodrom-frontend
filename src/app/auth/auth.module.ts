@@ -1,3 +1,4 @@
+import { MaterialModule } from './../material/material.module';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
@@ -21,6 +22,7 @@ import { LogoutComponent } from './components/logout/logout.component';
     ReactiveFormsModule,
     HttpClientModule,
     RouterModule,
+    MaterialModule
   ]
 })
 export class AuthModule { }
