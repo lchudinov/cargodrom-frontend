@@ -1,14 +1,14 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RegisterComponent } from './register.component';
+import { CheckCodeComponent } from './check-code.component';
 import {HttpClientTestingModule} from "@angular/common/http/testing";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {RouterTestingModule} from "@angular/router/testing";
 import {MaterialModule} from "../../../material/material.module";
 
-describe('RegisterComponent', () => {
-  let component: RegisterComponent;
-  let fixture: ComponentFixture<RegisterComponent>;
+describe('CheckCodeComponent', () => {
+  let component: CheckCodeComponent;
+  let fixture: ComponentFixture<CheckCodeComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -18,11 +18,11 @@ describe('RegisterComponent', () => {
         RouterTestingModule,
         MaterialModule
       ],
-      declarations: [ RegisterComponent ]
+      declarations: [ CheckCodeComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(RegisterComponent);
+    fixture = TestBed.createComponent(CheckCodeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
