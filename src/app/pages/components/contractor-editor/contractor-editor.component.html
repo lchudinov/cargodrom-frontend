@@ -46,10 +46,19 @@
             </mat-form-field>
           <!-- </div> -->
         <!-- </div> -->
-        <div class="form-item">
+        <!-- <div class="form-item">
           <div class="form-label">город: <span class="req">•</span></div>
           <div class="form-data"><input type="text" name="city_name" formControlName="city_name" placeholder="—"></div>
-        </div>
+        </div> -->
+        <mat-form-field appearance="outline" class="ui-select form-item">
+          <mat-label class="form-label">город</mat-label>
+          <mat-select formControlName="city_id">
+            <mat-option *ngFor="let city of cities;" [value]="city.id">{{ city.name }}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="contractorForm.controls['city_id'].hasError('required')">
+            Это поле обязательно
+          </mat-error>
+        </mat-form-field>
       </div>
 
       <div class="form-item-layout">

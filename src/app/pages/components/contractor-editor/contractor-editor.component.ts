@@ -1,3 +1,5 @@
+import { tap } from 'rxjs';
+import { City } from './../../../api/custom_models/city';
 import { DirectionService } from './../../../api/services/direction.service';
 import { Association } from './../../../api/custom_models/association';
 import { Country } from './../../../api/custom_models/country';
@@ -22,6 +24,7 @@ export class ContractorEditorComponent implements OnInit {
   associations: Association[] = [];
   contractorTypes: ContractorType[] = [];
   countries: Country[] = [];
+  cities: Partial<City>[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -47,6 +50,7 @@ export class ContractorEditorComponent implements OnInit {
       type_id: [undefined, [Validators.required]],
       language_id: [undefined, [Validators.required]],
       country_id: ['', [Validators.required]],
+      city_id: ['', [Validators.required]],
     });
   }
 
@@ -125,6 +129,12 @@ export class ContractorEditorComponent implements OnInit {
     this.directionService.directionCountryList()
       .subscribe(countries => this.countries = countries);
   }
+  
+  private getCities(countryId: number) {
+    this.directionService.directionCityList({country_id: countryId})
+      .pipe(tap(console.table))
+      .subscribe(cities => this.cities = cities);
+  }
 
   private getContractor(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
@@ -136,6 +146,9 @@ export class ContractorEditorComponent implements OnInit {
         this.contractor.contacts?.forEach(contact => contact.contractor_id = contractor.id);
         this.contractor.contacts?.forEach(contact => contactsControls.push(this.fb.control(contact)));
         this.contractorForm.patchValue(this.contractor);
+        if (typeof contractor.country_id === 'number') {
+          this.getCities(contractor.country_id);
+        }
       });
   }
 

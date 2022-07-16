@@ -21,6 +21,7 @@ describe('ContractorEditorComponent', () => {
         HttpClientTestingModule,
         RouterTestingModule,
         MaterialModule,
+        NoopAnimationsModule
       ],
       providers: [{
         provide: MatSnackBar,

@@ -7,7 +7,6 @@ import { MatOptionModule } from '@angular/material/core';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { ErrorDialogComponent } from './components/error-dialog/error-dialog.component';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -15,7 +14,6 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
   ],
   imports: [
     CommonModule,
-    NoopAnimationsModule,
     MatDialogModule,
     MatFormFieldModule,
     MatSelectModule,
@@ -28,7 +26,6 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
     MatSelectModule,
     MatOptionModule,
     MatSnackBarModule,
-    NoopAnimationsModule
   ]
 })
 export class MaterialModule { }
