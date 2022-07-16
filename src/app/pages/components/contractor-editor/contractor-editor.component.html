@@ -32,32 +32,20 @@
           <div class="form-label">Идентификатор (ИНН, Rec № и пр.):</div>
           <div class="form-data"><input type="text" name="ind" formControlName="ind" placeholder="—"></div>
         </div>
-        <div class="form-item">
-          <div class="form-label">Страна нахождения: <span class="req">•</span></div>
-          <div class="form-data">
-            <span class="ui-select" contenteditable="false"
-              style="margin-bottom: 0px; margin-top: 0px; margin-right: 0px; width: 247.5px;"><span
-                class="ui-select-width"
-                style="padding-left: 66px; font-size: 15px; font-family: regular, arial, &quot;sans-serif&quot;; display: block; overflow: hidden; height: 0px; line-height: 0; visibility: hidden; position: relative;">Тайвань</span><select
-                name="var[country_id]" class="init" style="display: none;">
-                <option value="1">Россия</option>
-                <option value="2">Китай</option>
-                <option value="3">Тайвань</option>
-              </select><span class="ui-select-input">Россия</span><span class="ui-select-button">&nbsp;</span><span
-                class="ui-select-fader">&nbsp;</span><span class="ui-select-layer"
-                style="display: none; height: auto; visibility: visible;"><span class="ui-select-list-scroller"><span
-                    class="ui-select-list"><span class="ui-select-item selected">Россия</span><span
-                      class="ui-select-item odd">Китай</span><span class="ui-select-item">Тайвань</span></span></span>
-                <div class="scrollbar-track">
-                  <div class="scrollbar-track-btn scrollbar-up"></div>
-                  <div class="scrollbar-track-free">
-                    <div class="scrollbar-bar"></div>
-                  </div>
-                  <div class="scrollbar-track-btn scrollbar-down"></div>
-                </div>
-              </span></span>
-          </div>
-        </div>
+        <!-- <div class="form-item"> -->
+          <!-- <div class="form-label">Страна нахождения: <span class="req">•</span></div> -->
+          <!-- <div class="form-data"> -->
+            <mat-form-field appearance="outline" class="ui-select form-item">
+              <mat-label class="form-label">страна нахождения</mat-label>
+              <mat-select formControlName="country_id">
+                <mat-option *ngFor="let country of countries;" [value]="country.id">{{ country.name }}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="contractorForm.controls['country_id'].hasError('required')">
+                Это поле обязательно
+              </mat-error>
+            </mat-form-field>
+          <!-- </div> -->
+        <!-- </div> -->
         <div class="form-item">
           <div class="form-label">город: <span class="req">•</span></div>
           <div class="form-data"><input type="text" name="city_name" formControlName="city_name" placeholder="—"></div>
@@ -81,111 +69,68 @@
       </div>
 
       <div class="form-item-layout">
-        <div class="form-item">
-          <div class="form-label">язык общения: <span class="req">•</span></div>
-          <div class="form-data">
-            <span class="ui-select" contenteditable="false"
-              style="margin-bottom: 0px; margin-top: 0px; margin-right: 0px; width: 247.5px;"><span
-                class="ui-select-width"
-                style="padding-left: 66px; font-size: 15px; font-family: regular, arial, &quot;sans-serif&quot;; display: block; overflow: hidden; height: 0px; line-height: 0; visibility: hidden; position: relative;">Английский</span><select
-                name="var[country_id]" class="init" style="display: none;">
-                <option value="1">Русский</option>
-                <option value="2">Английский</option>
-              </select><span class="ui-select-input">Русский</span><span class="ui-select-button">&nbsp;</span><span
-                class="ui-select-fader">&nbsp;</span><span class="ui-select-layer"
-                style="display: none; height: auto; visibility: visible;"><span class="ui-select-list-scroller"><span
-                    class="ui-select-list"><span class="ui-select-item selected">Русский</span><span
-                      class="ui-select-item odd">Английский</span></span></span>
-                <div class="scrollbar-track">
-                  <div class="scrollbar-track-btn scrollbar-up"></div>
-                  <div class="scrollbar-track-free">
-                    <div class="scrollbar-bar"></div>
-                  </div>
-                  <div class="scrollbar-track-btn scrollbar-down"></div>
-                </div>
-              </span></span>
-          </div>
+        <!-- <div class="form-item"> -->
+          <!-- <div class="form-label">язык общения: <span class="req">•</span></div> -->
+          <!-- <div class="form-data"> -->
+            <mat-form-field appearance="outline" class="ui-select form-item">
+              <mat-label class="form-label">язык общения</mat-label>
+              <mat-select formControlName="language_id">
+                <mat-option value="en">Английский</mat-option>
+                <mat-option value="ru">Русский</mat-option>
+              </mat-select>
+              <mat-error *ngIf="contractorForm.controls['language_id'].hasError('required')">
+                Это поле обязательно
+              </mat-error>
+            </mat-form-field>
+          <!-- </div> -->
+        <!-- </div> -->
+        <!-- <div class="form-item"> -->
+          <!-- <div class="form-label">вид подрядчика: <span class="req">•</span></div> -->
+          <!-- <div class="form-data"> -->
+            <mat-form-field appearance="outline" class="ui-select form-item">
+              <mat-label class="form-label">вид подрядчика</mat-label>
+              <mat-select formControlName="type_id">
+                <mat-option *ngFor="let type of contractorTypes; let i=index" [value]="i+1">{{ type.name }}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="contractorForm.controls['type_id'].hasError('required')">
+                Это поле обязательно
+              </mat-error>
+            </mat-form-field>
+          <!-- </div> -->
+        <!-- </div> -->
+        <!-- <div class="form-item"> -->
+          <!-- <div class="form-label">членство в ассоциациях:</div> -->
+          <!-- <div class="form-data"> -->
+            <mat-form-field appearance="outline" class="ui-select form-item">
+              <mat-label class="form-label">членство в ассоциациях</mat-label>
+              <mat-select formControlName="association_id" multiple>
+                <mat-select-trigger>
+                  {{ assocAsText }}
+                </mat-select-trigger>
+                <mat-option *ngFor="let assoc of associations" [value]="assoc.id">{{assoc.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          <!-- </div> -->
+        <!-- </div> -->
+        <!-- <div class="form-item"> -->
+          <!-- <div class="form-label">система налогообложения: <span class="req">•</span></div> -->
+          <!-- <div class="form-data"> -->
+            <mat-form-field appearance="outline" class="ui-select form-item">
+              <mat-label class="form-label">система налогообложения</mat-label>
+              <mat-select formControlName="tax_id">
+                <mat-option [value]="1">ОСНО - общая система налогообложения</mat-option>
+                <mat-option [value]="2">УСН – упрощённая система налогообложения</mat-option>
+                <mat-option [value]="3">ЕСХН – единый сельскохозяйственный налог</mat-option>
+                <mat-option [value]="4">Патентная система налогообложения</mat-option>
+                <mat-option [value]="5">АУСН - новый вариант упрощённой системы без уплаты страховых взносов</mat-option>
+              </mat-select>
+              <mat-error *ngIf="contractorForm.controls['tax_id'].hasError('required')">
+                Это поле обязательно
+              </mat-error>
+            </mat-form-field>
+          <!-- </div> -->
         </div>
-        <div class="form-item">
-          <div class="form-label">вид подрядчика: <span class="req">•</span></div>
-          <div class="form-data">
-            <span class="ui-select" contenteditable="false"
-              style="margin-bottom: 0px; margin-top: 0px; margin-right: 0px; width: 247.5px;"><span
-                class="ui-select-width"
-                style="padding-left: 66px; font-size: 15px; font-family: regular, arial, &quot;sans-serif&quot;; display: block; overflow: hidden; height: 0px; line-height: 0; visibility: hidden; position: relative;">Агент</span><select
-                name="var[country_id]" class="init" style="display: none;">
-                <option value="1">Агент</option>
-                <option value="2">Агент</option>
-                <option value="3">Агент</option>
-              </select><span class="ui-select-input">Агент</span><span class="ui-select-button">&nbsp;</span><span
-                class="ui-select-fader">&nbsp;</span><span class="ui-select-layer"
-                style="display: none; height: auto; visibility: visible;"><span class="ui-select-list-scroller"><span
-                    class="ui-select-list"><span class="ui-select-item selected">Агент</span><span
-                      class="ui-select-item odd">Агент</span><span class="ui-select-item">Агент</span></span></span>
-                <div class="scrollbar-track">
-                  <div class="scrollbar-track-btn scrollbar-up"></div>
-                  <div class="scrollbar-track-free">
-                    <div class="scrollbar-bar"></div>
-                  </div>
-                  <div class="scrollbar-track-btn scrollbar-down"></div>
-                </div>
-              </span></span>
-          </div>
-        </div>
-        <div class="form-item">
-          <div class="form-label">членство в ассоциациях:</div>
-          <div class="form-data">
-            <span class="ui-select" contenteditable="false"
-              style="margin-bottom: 0px; margin-top: 0px; margin-right: 0px; width: 247.5px;"><span
-                class="ui-select-width"
-                style="padding-left: 66px; font-size: 15px; font-family: regular, arial, &quot;sans-serif&quot;; display: block; overflow: hidden; height: 0px; line-height: 0; visibility: hidden; position: relative;">WCA,
-                GLA</span><select name="var[country_id]" class="init" style="display: none;">
-                <option value="1">WCA, GLA</option>
-                <option value="2">WCA, GLA</option>
-                <option value="3">WCA, GLA</option>
-              </select><span class="ui-select-input">WCA, GLA</span><span class="ui-select-button">&nbsp;</span><span
-                class="ui-select-fader">&nbsp;</span><span class="ui-select-layer"
-                style="display: none; height: auto; visibility: visible;"><span class="ui-select-list-scroller"><span
-                    class="ui-select-list"><span class="ui-select-item selected">WCA, GLA</span><span
-                      class="ui-select-item odd">WCA, GLA</span><span class="ui-select-item">WCA,
-                      GLA</span></span></span>
-                <div class="scrollbar-track">
-                  <div class="scrollbar-track-btn scrollbar-up"></div>
-                  <div class="scrollbar-track-free">
-                    <div class="scrollbar-bar"></div>
-                  </div>
-                  <div class="scrollbar-track-btn scrollbar-down"></div>
-                </div>
-              </span></span>
-          </div>
-        </div>
-        <div class="form-item">
-          <div class="form-label">система налогообложения: <span class="req">•</span></div>
-          <div class="form-data">
-            <span class="ui-select" contenteditable="false"
-              style="margin-bottom: 0px; margin-top: 0px; margin-right: 0px; width: 247.5px;"><span
-                class="ui-select-width"
-                style="padding-left: 66px; font-size: 15px; font-family: regular, arial, &quot;sans-serif&quot;; display: block; overflow: hidden; height: 0px; line-height: 0; visibility: hidden; position: relative;">НДС
-                18%</span><select name="var[country_id]" class="init" style="display: none;">
-                <option value="1">НДС 0%</option>
-                <option value="2">НДС 18%</option>
-                <option value="3">НДС 20%</option>
-              </select><span class="ui-select-input">НДС 0%</span><span class="ui-select-button">&nbsp;</span><span
-                class="ui-select-fader">&nbsp;</span><span class="ui-select-layer"
-                style="display: none; height: auto; visibility: visible;"><span class="ui-select-list-scroller"><span
-                    class="ui-select-list"><span class="ui-select-item selected">НДС 0%</span><span
-                      class="ui-select-item odd">НДС 18%</span><span class="ui-select-item">НДС 20%</span></span></span>
-                <div class="scrollbar-track">
-                  <div class="scrollbar-track-btn scrollbar-up"></div>
-                  <div class="scrollbar-track-free">
-                    <div class="scrollbar-bar"></div>
-                  </div>
-                  <div class="scrollbar-track-btn scrollbar-down"></div>
-                </div>
-              </span></span>
-          </div>
-        </div>
-      </div>
+      <!-- </div> -->
 
     </div>
     <div class="form-row sep">
@@ -262,3 +207,7 @@
   </div>
 
 </form>
+
+<pre>
+  {{ contractorForm.value | json }}
+</pre>

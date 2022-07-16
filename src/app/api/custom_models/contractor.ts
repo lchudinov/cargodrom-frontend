@@ -55,3 +55,8 @@ export interface Contractor {
   contact_city?: string;
   cargo?: string;
 }
+
+export interface ContractorType {
+  id?: string;
+  name?: string;
+}
