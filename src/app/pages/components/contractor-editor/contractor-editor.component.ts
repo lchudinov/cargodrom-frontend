@@ -97,6 +97,10 @@ export class ContractorEditorComponent implements OnInit {
     return ids.map(id => this.associations.find(a => a.id === id)?.name).join(', ');
   }
   
+  onCountryChange(countryId: number): void {
+    this.contractorForm.controls['city_id'].reset(undefined);
+    this.getCities(countryId);
+  }
   
   private updateContractor(body: any) {
     this.contractorService.contractorUpdate({ body }).pipe().subscribe({

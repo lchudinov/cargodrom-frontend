@@ -37,7 +37,7 @@
           <!-- <div class="form-data"> -->
             <mat-form-field appearance="outline" class="ui-select form-item">
               <mat-label class="form-label">страна нахождения</mat-label>
-              <mat-select formControlName="country_id">
+              <mat-select formControlName="country_id" (valueChange)="onCountryChange($event)">
                 <mat-option *ngFor="let country of countries;" [value]="country.id">{{ country.name }}</mat-option>
               </mat-select>
               <mat-error *ngIf="contractorForm.controls['country_id'].hasError('required')">
