@@ -1,5 +1,5 @@
 import { ContractorService } from './../../../api/services/contractor.service';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Contractor } from '../../../api/custom_models';
 
 @Component({
