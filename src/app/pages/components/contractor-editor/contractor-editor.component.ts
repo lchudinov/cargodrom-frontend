@@ -9,7 +9,7 @@ import { ContractorService } from './../../../api/services/contractor.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-contractor-editor',
@@ -25,6 +25,7 @@ export class ContractorEditorComponent implements OnInit {
   contractorTypes: ContractorType[] = [];
   countries: Country[] = [];
   cities: Partial<City>[] = [];
+  snackBarOptions: MatSnackBarConfig = {duration: 3000};
 
   constructor(
     private route: ActivatedRoute,
@@ -96,27 +97,27 @@ export class ContractorEditorComponent implements OnInit {
     const ids: string[] = this.contractorForm.controls['association_id'].value || [];
     return ids.map(id => this.associations.find(a => a.id === id)?.name).join(', ');
   }
-  
+
   onCountryChange(countryId: number): void {
     this.contractorForm.controls['city_id'].reset(undefined);
     this.getCities(countryId);
   }
-  
+
   private updateContractor(body: any) {
     this.contractorService.contractorUpdate({ body }).pipe().subscribe({
-      next: () => this.snackBar.open(`Подрядчик сохранен`),
-      error: (err) => this.snackBar.open(`Ошибка сохранения подрядчика: ` + err.error.error_message)
+      next: () => this.snackBar.open(`Подрядчик сохранен`, undefined, this.snackBarOptions),
+      error: (err) => this.snackBar.open(`Ошибка сохранения подрядчика: ` + err.error.error_message, undefined, this.snackBarOptions)
     });
   }
-  
+
   private createContractor(body: any) {
     this.contractorService.contractorCreate({ body }).pipe().subscribe({
-      next: ({id}: {id: number}) => {
+      next: ({ id }: { id: number }) => {
         this.contractor.id = id;
         this.contractorForm.controls['id'].setValue(id);
-        this.snackBar.open(`Подрядчик создан`)
+        this.snackBar.open(`Подрядчик создан`, undefined, this.snackBarOptions)
       },
-      error: (err) => this.snackBar.open(`Ошибка создания подрядчика: ` + err.error.error_message)
+      error: (err) => this.snackBar.open(`Ошибка создания подрядчика: ` + err.error.error_message, undefined, this.snackBarOptions)
     });
   }
   private getAssociations() {
@@ -128,14 +129,14 @@ export class ContractorEditorComponent implements OnInit {
     this.contractorService.contractorType()
       .subscribe(contractorTypes => this.contractorTypes = contractorTypes as ContractorType[]);
   }
-  
+
   private getCountries() {
     this.directionService.directionCountryList()
       .subscribe(countries => this.countries = countries);
   }
-  
+
   private getCities(countryId: number) {
-    this.directionService.directionCityList({country_id: countryId})
+    this.directionService.directionCityList({ country_id: countryId })
       .pipe(tap(console.table))
       .subscribe(cities => this.cities = cities);
   }
