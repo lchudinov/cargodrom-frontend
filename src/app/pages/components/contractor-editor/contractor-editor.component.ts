@@ -4,7 +4,7 @@ import { DirectionService } from './../../../api/services/direction.service';
 import { Association } from './../../../api/custom_models/association';
 import { Country } from './../../../api/custom_models/country';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Contractor, ContractorType } from './../../../api/custom_models/contractor';
+import { Contractor, ContractorRequestFormat, ContractorType } from './../../../api/custom_models/contractor';
 import { ContractorService } from './../../../api/services/contractor.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
@@ -25,7 +25,8 @@ export class ContractorEditorComponent implements OnInit {
   contractorTypes: ContractorType[] = [];
   countries: Country[] = [];
   cities: Partial<City>[] = [];
-  snackBarOptions: MatSnackBarConfig = {duration: 3000};
+  snackBarOptions: MatSnackBarConfig = { duration: 3000 };
+  requestFormats: ContractorRequestFormat[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -52,6 +53,7 @@ export class ContractorEditorComponent implements OnInit {
       language_id: [undefined, [Validators.required]],
       country_id: ['', [Validators.required]],
       city_id: ['', [Validators.required]],
+      request_format_id: ['', [Validators.required]],
     });
   }
 
@@ -64,6 +66,7 @@ export class ContractorEditorComponent implements OnInit {
     this.getContractorTypes();
     this.getAssociations();
     this.getCountries();
+    this.getRequestFormats();
   }
 
   goBack(): void {
@@ -133,6 +136,12 @@ export class ContractorEditorComponent implements OnInit {
   private getCountries() {
     this.directionService.directionCountryList()
       .subscribe(countries => this.countries = countries);
+  }
+
+  private getRequestFormats(): void {
+    this.contractorService.contractorRequestFormat()
+      .pipe(tap(console.table))
+      .subscribe(formats => this.requestFormats = formats);
   }
 
   private getCities(countryId: number) {

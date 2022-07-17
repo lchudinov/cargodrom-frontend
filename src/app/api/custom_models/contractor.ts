@@ -60,3 +60,8 @@ export interface ContractorType {
   id?: string;
   name?: string;
 }
+
+export interface ContractorRequestFormat {
+  id: string;
+  name: string;
+}

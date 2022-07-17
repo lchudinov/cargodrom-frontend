@@ -144,10 +144,11 @@
     </div>
     <div class="form-row sep">
       Формат отправки запроса: <span class="req">•</span>
-      <label><input type="radio" name="var[send_format]" value="1"><i></i><span>E-mail (запрос в текстовом
-          формате)</span></label>
-      <label><input type="radio" name="var[send_format]" value="1"><i></i><span>E-mail (приглашение на внесение ставок в
-          системе)</span></label>
+      <label *ngFor="let format of requestFormats">
+        <input type="radio" formControlName="request_format_id" [value]="format.id">
+        <i></i>
+        <span>{{ format.name }}</span>
+      </label>
     </div>
   </div>
 
