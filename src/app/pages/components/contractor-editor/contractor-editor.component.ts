@@ -7,7 +7,7 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Contractor, ContractorRequestFormat, ContractorType } from './../../../api/custom_models/contractor';
 import { ContractorService } from './../../../api/services/contractor.service';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 
@@ -25,7 +25,8 @@ export class ContractorEditorComponent implements OnInit {
   contractorTypes: ContractorType[] = [];
   countries: Country[] = [];
   cities: Partial<City>[] = [];
-  snackBarOptions: MatSnackBarConfig = { duration: 3000 };
+  snackBarWithShortDuration: MatSnackBarConfig = { duration: 1000 };
+  snackBarWithLongDuration: MatSnackBarConfig = { duration: 3000 };
   requestFormats: ContractorRequestFormat[] = [];
 
   constructor(
@@ -35,6 +36,7 @@ export class ContractorEditorComponent implements OnInit {
     private location: Location,
     private fb: FormBuilder,
     private snackBar: MatSnackBar,
+    private router: Router,
   ) {
     this.contractorForm = this.fb.group({
       id: [''],
@@ -73,6 +75,10 @@ export class ContractorEditorComponent implements OnInit {
   goBack(): void {
     this.location.back();
   }
+  
+  goToContractors(): void {
+    this.router.navigate(['/pages/contractor']);
+  }
 
   removeContact(i: number): void {
     this.contacts.removeAt(i);
@@ -96,6 +102,15 @@ export class ContractorEditorComponent implements OnInit {
       this.createContractor(body);
     }
   }
+  
+  remove(): void {
+    this.snackBar.open("Удаление подрядчика...", "Отменить", this.snackBarWithLongDuration)
+      .afterDismissed().subscribe(res => {
+        if (!res.dismissedByAction) {
+          this.removeContractor();
+        }
+      });
+  }
 
   get assocAsText(): string {
     const ids: string[] = this.contractorForm.controls['association_id'].value || [];
@@ -109,8 +124,8 @@ export class ContractorEditorComponent implements OnInit {
 
   private updateContractor(body: any) {
     this.contractorService.contractorUpdate({ body }).pipe().subscribe({
-      next: () => this.snackBar.open(`Подрядчик сохранен`, undefined, this.snackBarOptions),
-      error: (err) => this.snackBar.open(`Ошибка сохранения подрядчика: ` + err.error.error_message, undefined, this.snackBarOptions)
+      next: () => this.snackBar.open(`Подрядчик сохранен`, undefined, this.snackBarWithShortDuration),
+      error: (err) => this.snackBar.open(`Ошибка сохранения подрядчика: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
     });
   }
 
@@ -119,11 +134,23 @@ export class ContractorEditorComponent implements OnInit {
       next: ({ id }: { id: number }) => {
         this.contractor.id = id;
         this.contractorForm.controls['id'].setValue(id);
-        this.snackBar.open(`Подрядчик создан`, undefined, this.snackBarOptions)
+        this.snackBar.open(`Подрядчик создан`, undefined, this.snackBarWithShortDuration)
       },
-      error: (err) => this.snackBar.open(`Ошибка создания подрядчика: ` + err.error.error_message, undefined, this.snackBarOptions)
+      error: (err) => this.snackBar.open(`Ошибка создания подрядчика: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
     });
   }
+  
+  private removeContractor() {
+    const body = { id: this.contractor.id! };
+    this.contractorService.contractorDelete({ body }).subscribe({
+      next: () => {
+        this.snackBar.open('Подрядчик удален', undefined, this.snackBarWithShortDuration);
+        this.goToContractors();
+      },
+      error: (err) => this.snackBar.open(`Ошибка сохранения подрядчика: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
+    });
+  }
+
   private getAssociations() {
     this.contractorService.contractorAssociation()
       .subscribe(associations => this.associations = associations as Association[]);
@@ -154,15 +181,21 @@ export class ContractorEditorComponent implements OnInit {
   private getContractor(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.contractorService.contractorInfo({ id })
-      .subscribe(contractor => {
-        console.table(contractor);
-        this.contractor = contractor as Contractor;
-        const contactsControls = this.contacts;
-        this.contractor.contacts?.forEach(contact => contact.contractor_id = contractor.id);
-        this.contractor.contacts?.forEach(contact => contactsControls.push(this.fb.control(contact)));
-        this.contractorForm.patchValue(this.contractor);
-        if (typeof contractor.country_id === 'number') {
-          this.getCities(contractor.country_id);
+      .subscribe({
+        next: contractor => {
+          console.table(contractor);
+          this.contractor = contractor as Contractor;
+          const contactsControls = this.contacts;
+          this.contractor.contacts?.forEach(contact => contact.contractor_id = contractor.id);
+          this.contractor.contacts?.forEach(contact => contactsControls.push(this.fb.control(contact)));
+          this.contractorForm.patchValue(this.contractor);
+          if (typeof contractor.country_id === 'number') {
+            this.getCities(contractor.country_id);
+          }
+        },
+        error: (err: any) => {
+          this.snackBar.open(`Подрядчик не существует: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+          this.goToContractors();
         }
       });
   }
