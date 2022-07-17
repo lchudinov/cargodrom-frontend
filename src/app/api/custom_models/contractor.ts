@@ -48,7 +48,7 @@ export interface Contractor {
   avg_answer_time?: number;
   access?: number;
   request_format_id?: string;
-  exclude_from_trade?: number;
+  exclude_from_trade?: boolean;
   types?: string;
   contact_phone?: string;
   contact_email?: string;

@@ -54,6 +54,7 @@ export class ContractorEditorComponent implements OnInit {
       country_id: ['', [Validators.required]],
       city_id: ['', [Validators.required]],
       request_format_id: ['', [Validators.required]],
+      exclude_from_trade: [false]
     });
   }
 
