@@ -79,6 +79,10 @@ export class ContractorEditorComponent implements OnInit {
   goToContractors(): void {
     this.router.navigate(['/pages/contractor']);
   }
+  
+  goToContractor(id: number): void {
+    this.router.navigate(['/pages/contractor/edit', id]);
+  }
 
   removeContact(i: number): void {
     this.contacts.removeAt(i);
@@ -131,10 +135,8 @@ export class ContractorEditorComponent implements OnInit {
 
   private createContractor(body: any) {
     this.contractorService.contractorCreate({ body }).pipe().subscribe({
-      next: ({ id }: { id: number }) => {
-        this.contractor.id = id;
-        this.contractorForm.controls['id'].setValue(id);
-        this.isEditMode = true;
+      next: ({id}) => {
+        this.goToContractor(id);
         this.snackBar.open(`Подрядчик создан`, undefined, this.snackBarWithShortDuration)
       },
       error: (err) => this.snackBar.open(`Ошибка создания подрядчика: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
@@ -182,6 +184,13 @@ export class ContractorEditorComponent implements OnInit {
   private getContractor(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.contractorService.contractorInfo({ id })
+      .pipe(tap(contractor => {
+        // currently, when contactor doesn't exist the service returns HTTP 200 with empty response body instead of HTTP 404
+        // therefore we have to handle that case manually
+        if (!contractor) {
+          throw ({error: {error_message: `подрядчик не существует`}});
+        }
+      }))
       .subscribe({
         next: contractor => {
           console.table(contractor);
@@ -195,7 +204,7 @@ export class ContractorEditorComponent implements OnInit {
           }
         },
         error: (err: any) => {
-          this.snackBar.open(`Подрядчик не существует: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+          this.snackBar.open(`Подрядчик не найден: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
           this.goToContractors();
         }
       });
