@@ -134,6 +134,7 @@ export class ContractorEditorComponent implements OnInit {
       next: ({ id }: { id: number }) => {
         this.contractor.id = id;
         this.contractorForm.controls['id'].setValue(id);
+        this.isEditMode = true;
         this.snackBar.open(`Подрядчик создан`, undefined, this.snackBarWithShortDuration)
       },
       error: (err) => this.snackBar.open(`Ошибка создания подрядчика: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
