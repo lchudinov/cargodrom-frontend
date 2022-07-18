@@ -7,7 +7,7 @@
     </div>
     <div class="fn">
       <span class="btn v save" (click)="save()"><span>сохранить</span></span>
-      <span class="btn v del"><span>Удалить</span></span>
+      <span class="btn v del" *ngIf="isEditMode" (click)="remove()"><span>Удалить</span></span>
       <span class="btn v cancel" (click)="goBack()"><span>отмена</span></span>
     </div>
   </div>
@@ -212,7 +212,7 @@
     </div>
     <div class="fn">
       <span class="btn v save" (click)="save()"><span>сохранить</span></span>
-      <span class="btn v del"><span>Удалить</span></span>
+      <span class="btn v del" *ngIf="isEditMode" (click)="remove()"><span>Удалить</span></span>
       <span class="btn v cancel" (click)="goBack()"><span>отмена</span></span>
     </div>
   </div>
