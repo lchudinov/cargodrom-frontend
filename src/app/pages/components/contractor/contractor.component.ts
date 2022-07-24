@@ -1,3 +1,4 @@
+import { ContractorFilter } from './../../../api/custom_models/contractor-filter';
 import { ContractorService } from './../../../api/services/contractor.service';
 import { Component, OnInit } from '@angular/core';
 import { Contractor } from '../../../api/custom_models';
@@ -16,6 +17,7 @@ export class ContractorComponent implements OnInit {
   count = this.limits[0];
   
   trackById = (index: number, contractor: Contractor) => contractor.id!;
+  filter: ContractorFilter = {};
 
   constructor(
     private contractorService: ContractorService
@@ -34,10 +36,14 @@ export class ContractorComponent implements OnInit {
   onCountChange(count: number): void {
     this.updateTable(0, count);
   }
+  
+  onFilterChange(filter: ContractorFilter): void {
+    this.filter = filter;
+    this.updateTable(0, this.count);
+  }
 
   private updateTable(start: number, count: number): void {
-    const desiredStart = 0;
-    const params = { start: desiredStart, count };
+    const params = { start, count, ...this.filter || {} };
     this.contractorService.contractorList(params).subscribe(
       ({ items, total }) => {
         this.start = start;
@@ -47,5 +53,5 @@ export class ContractorComponent implements OnInit {
       }
     );
   }
-
+  
 }
