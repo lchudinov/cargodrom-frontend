@@ -14,6 +14,8 @@ export class ContractorComponent implements OnInit {
   start = 0;
   limits = [10, 15, 25, 50, 100];
   count = this.limits[0];
+  
+  trackById = (index: number, contractor: Contractor) => contractor.id!;
 
   constructor(
     private contractorService: ContractorService

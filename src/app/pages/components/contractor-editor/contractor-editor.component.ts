@@ -1,3 +1,4 @@
+import { environment } from './../../../../environments/environment';
 import { tap } from 'rxjs';
 import { City } from './../../../api/custom_models/city';
 import { DirectionService } from './../../../api/services/direction.service';
@@ -28,6 +29,7 @@ export class ContractorEditorComponent implements OnInit {
   snackBarWithShortDuration: MatSnackBarConfig = { duration: 1000 };
   snackBarWithLongDuration: MatSnackBarConfig = { duration: 3000 };
   requestFormats: ContractorRequestFormat[] = [];
+  production = environment.production;
 
   constructor(
     private route: ActivatedRoute,
@@ -124,6 +126,10 @@ export class ContractorEditorComponent implements OnInit {
   onCountryChange(countryId: number): void {
     this.contractorForm.controls['city_id'].reset(undefined);
     this.getCities(countryId);
+  }
+  
+  canSave(): boolean {
+    return this.contractorForm.valid && this.contractorForm.dirty;
   }
 
   private updateContractor(body: any) {
