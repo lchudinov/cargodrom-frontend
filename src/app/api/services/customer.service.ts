@@ -45,12 +45,12 @@ export class CustomerService extends BaseService {
     /**
      * Страница
      */
-    page?: any;
+    page?: number;
 
     /**
      * Лимит позиций на страницу
      */
-    limit?: any;
+    limit?: number;
   }): Observable<StrictHttpResponse<Array<{
 
 /**
@@ -167,12 +167,12 @@ export class CustomerService extends BaseService {
     /**
      * Страница
      */
-    page?: any;
+    page?: number;
 
     /**
      * Лимит позиций на страницу
      */
-    limit?: any;
+    limit?: number;
   }): Observable<Array<{
 
 /**
@@ -323,7 +323,7 @@ export class CustomerService extends BaseService {
     /**
      * ID клиента
      */
-    id: any;
+    id: number;
   }): Observable<StrictHttpResponse<{
 
 /**
@@ -439,7 +439,7 @@ export class CustomerService extends BaseService {
     /**
      * ID клиента
      */
-    id: any;
+    id: number;
   }): Observable<{
 
 /**

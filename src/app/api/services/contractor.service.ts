@@ -361,6 +361,31 @@ export class ContractorService extends BaseService {
   contractorList$Response(params?: {
 
     /**
+     * Специализация (ID берем из запроса - transport_kind)
+     */
+    specialization?: Array<string>;
+
+    /**
+     * Минимальный рейтинг
+     */
+    rating?: number;
+
+    /**
+     * Доступ к торгам
+     */
+    allow_trade?: boolean;
+
+    /**
+     * Направление откуда (ID берем из запроса - direction_country)
+     */
+    country_departure?: number;
+
+    /**
+     * Направление куда (ID берем из запроса - direction_country)
+     */
+    country_arrival?: number;
+
+    /**
      * Начальная позиция
      */
     start?: number;
@@ -570,6 +595,11 @@ export class ContractorService extends BaseService {
 
     const rb = new RequestBuilder(this.rootUrl, ContractorService.ContractorListPath, 'get');
     if (params) {
+      rb.query('specialization', params.specialization, {"style":"form","explode":false});
+      rb.query('rating', params.rating, {});
+      rb.query('allow_trade', params.allow_trade, {});
+      rb.query('country_departure', params.country_departure, {});
+      rb.query('country_arrival', params.country_arrival, {});
       rb.query('start', params.start, {});
       rb.query('count', params.count, {});
     }
@@ -795,14 +825,39 @@ export class ContractorService extends BaseService {
   contractorList(params?: {
 
     /**
+     * Специализация (ID берем из запроса - transport_kind)
+     */
+    specialization?: Array<string>;
+
+    /**
+     * Минимальный рейтинг
+     */
+    rating?: number;
+
+    /**
+     * Доступ к торгам
+     */
+    allow_trade?: boolean;
+
+    /**
+     * Направление откуда (ID берем из запроса - direction_country)
+     */
+    country_departure?: number;
+
+    /**
+     * Направление куда (ID берем из запроса - direction_country)
+     */
+    country_arrival?: number;
+
+    /**
      * Начальная позиция
      */
-    start?: any;
+    start?: number;
 
     /**
      * Лимит позиций на страницу
      */
-    count?: any;
+    count?: number;
   }): Observable<{
 
 /**
@@ -1421,7 +1476,7 @@ export class ContractorService extends BaseService {
     /**
      * ID контрагента
      */
-    id: any;
+    id: number;
   }): Observable<StrictHttpResponse<{
 
 /**
@@ -2021,7 +2076,7 @@ export class ContractorService extends BaseService {
     /**
      * ID контрагента
      */
-    id: any;
+    id: number;
   }): Observable<{
 
 /**
@@ -3461,7 +3516,7 @@ export class ContractorService extends BaseService {
     /**
      * ID контрагента
      */
-    id: any;
+    id: number;
   }): Observable<StrictHttpResponse<Array<{
 
 /**
@@ -3689,7 +3744,7 @@ export class ContractorService extends BaseService {
     /**
      * ID контрагента
      */
-    id: any;
+    id: number;
   }): Observable<Array<{
 
 /**
@@ -4008,7 +4063,7 @@ export class ContractorService extends BaseService {
     /**
      * ID контакта
      */
-    id: any;
+    id: number;
   }): Observable<StrictHttpResponse<{
 
 /**
@@ -4236,7 +4291,7 @@ export class ContractorService extends BaseService {
     /**
      * ID контакта
      */
-    id: any;
+    id: number;
   }): Observable<{
 
 /**

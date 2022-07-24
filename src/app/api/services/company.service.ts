@@ -1176,7 +1176,7 @@ export class CompanyService extends BaseService {
     /**
      * ID компании
      */
-    id: any;
+    id: number;
   }): Observable<StrictHttpResponse<{
 
 /**
@@ -1642,7 +1642,7 @@ export class CompanyService extends BaseService {
     /**
      * ID компании
      */
-    id: any;
+    id: number;
   }): Observable<{
 
 /**
@@ -4226,7 +4226,7 @@ export class CompanyService extends BaseService {
     /**
      * ID должности
      */
-    id: any;
+    id: number;
   }): Observable<StrictHttpResponse<{
 
 /**
@@ -4324,7 +4324,7 @@ export class CompanyService extends BaseService {
     /**
      * ID должности
      */
-    id: any;
+    id: number;
   }): Observable<{
 
 /**
@@ -4825,22 +4825,22 @@ export class CompanyService extends BaseService {
     /**
      * ID подразделения
      */
-    department_id?: any;
+    department_id?: number;
 
     /**
      * ID должности
      */
-    position_id?: any;
+    position_id?: number;
 
     /**
      * Страница
      */
-    page?: any;
+    page?: number;
 
     /**
      * Лимит позиций на страницу
      */
-    limit?: any;
+    limit?: number;
   }): Observable<StrictHttpResponse<{
 
 /**
@@ -5059,22 +5059,22 @@ export class CompanyService extends BaseService {
     /**
      * ID подразделения
      */
-    department_id?: any;
+    department_id?: number;
 
     /**
      * ID должности
      */
-    position_id?: any;
+    position_id?: number;
 
     /**
      * Страница
      */
-    page?: any;
+    page?: number;
 
     /**
      * Лимит позиций на страницу
      */
-    limit?: any;
+    limit?: number;
   }): Observable<{
 
 /**
@@ -5375,7 +5375,7 @@ export class CompanyService extends BaseService {
     /**
      * ID сотрудника
      */
-    id: any;
+    id: number;
   }): Observable<StrictHttpResponse<{
 
 /**
@@ -5591,7 +5591,7 @@ export class CompanyService extends BaseService {
     /**
      * ID сотрудника
      */
-    id: any;
+    id: number;
   }): Observable<{
 
 /**

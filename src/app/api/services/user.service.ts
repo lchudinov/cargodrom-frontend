@@ -187,6 +187,129 @@ export class UserService extends BaseService {
   }
 
   /**
+   * Path part for operation userCheckCode
+   */
+  static readonly UserCheckCodePath = '/user_check__code';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `userCheckCode()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  userCheckCode$Response(params?: {
+  }): Observable<StrictHttpResponse<{
+
+/**
+ * Код ошибки
+ */
+'error_code'?: number;
+
+/**
+ * Тект ошибки
+ */
+'error_message'?: string;
+
+/**
+ * Подробное описание ошибки
+ */
+'error_message_description'?: string;
+}>> {
+
+    const rb = new RequestBuilder(this.rootUrl, UserService.UserCheckCodePath, 'get');
+    if (params) {
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Код ошибки
+         */
+        'error_code'?: number;
+        
+        /**
+         * Тект ошибки
+         */
+        'error_message'?: string;
+        
+        /**
+         * Подробное описание ошибки
+         */
+        'error_message_description'?: string;
+        }>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `userCheckCode$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  userCheckCode(params?: {
+  }): Observable<{
+
+/**
+ * Код ошибки
+ */
+'error_code'?: number;
+
+/**
+ * Тект ошибки
+ */
+'error_message'?: string;
+
+/**
+ * Подробное описание ошибки
+ */
+'error_message_description'?: string;
+}> {
+
+    return this.userCheckCode$Response(params).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Код ошибки
+ */
+'error_code'?: number;
+
+/**
+ * Тект ошибки
+ */
+'error_message'?: string;
+
+/**
+ * Подробное описание ошибки
+ */
+'error_message_description'?: string;
+}>) => r.body as {
+
+/**
+ * Код ошибки
+ */
+'error_code'?: number;
+
+/**
+ * Тект ошибки
+ */
+'error_message'?: string;
+
+/**
+ * Подробное описание ошибки
+ */
+'error_message_description'?: string;
+})
+    );
+  }
+
+  /**
    * Path part for operation userLogin
    */
   static readonly UserLoginPath = '/user_login';
